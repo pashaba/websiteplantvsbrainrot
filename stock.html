@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Seeds | Plants vs Brainrot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+    body {
+      background: linear-gradient(135deg, #111, #1e1e1e);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #9ff77f;
+    }
+
+    .timer {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .ready { color: #5fff87; }
+    .out { color: #ff5f5f; }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .fade {
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌱 Stock Seeds</h1>
+  <div class="timer" id="timer">Auto refresh dalam 05:00</div>
+
+  <div class="grid" id="stockGrid">
+    <p>Sedang memuat data...</p>
+  </div>
+
+  <footer>© 2025 Plants vs Brainrot • Pasha Project</footer>
+
+  <script>
+    const API_URL = "https://plantsvsbrainrot.com/api/seed-shop.php";
+    const grid = document.getElementById("stockGrid");
+    const timerEl = document.getElementById("timer");
+    let refreshInterval = 300; // 5 menit
+
+    async function fetchStock() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        grid.innerHTML = "";
+        data.forEach(seed => {
+          const card = document.createElement("div");
+          card.className = "card fade";
+          card.innerHTML = `
+            <h2>${seed.name}</h2>
+            <p>${seed.price ? `💰 ${seed.price}` : "Harga tidak diketahui"}</p>
+            <div class="status ${seed.status === 'Ready' ? 'ready' : 'out'}">
+              ${seed.status === 'Ready' ? '✅ Ready' : '❌ Out of Stock'}
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        grid.innerHTML = `<p>⚠️ Gagal memuat data. Coba lagi nanti.</p>`;
+        console.error(err);
+      }
+    }
+
+    // Countdown Timer
+    let timeLeft = refreshInterval;
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerEl.textContent = `Auto refresh dalam ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      if (timeLeft <= 0) {
+        timeLeft = refreshInterval;
+        fetchStock();
+      }
+      timeLeft--;
+    }
+
+    fetchStock();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
