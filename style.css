@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  scroll-behavior: smooth;
+}
+
+header, main, footer {
+  padding: 20px;
+  animation: fade 1s ease-in;
+}
+
+h1, h2, h3 {
+  color: #8ef6e4;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn-whatsapp, .btn-faq, .btn-back {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+}
+
+.btn-faq {
+  background-color: #0078ff;
+}
+
+.btn-back {
+  background-color: #8ef6e4;
+  color: #000;
+}
+
+.btn-whatsapp:hover, .btn-faq:hover, .btn-back:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.ads-section {
+  margin: 40px auto;
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer {
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  font-size: 0.9em;
+  margin-top: 40px;
+}
+
