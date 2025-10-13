@@ -176,66 +176,51 @@
       // start countdown
       startCountdown();
     }
-
     // fetch data
-    async function fetchData(){
-      try {
-        statusMsg.textContent = 'Memuat data...';
-        const res = await fetch(API_URL, {cache: "no-store"});
-        if(!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        render(data);
-        statusMsg.textContent = 'Data berhasil dimuat.';
-      } catch (err) {
-        console.error(err);
-        statusMsg.style.color = '#f7d3d3';
-        statusMsg.textContent = 'Gagal memuat data: ' + err.message;
-        // show fallback UI
-        seedsGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat seeds</div>';
-        gearGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat gear</div>';
-        // fallback nextUpdateAt -> try again in 60s
-        nextUpdateAt = Date.now() + 60000;
-        startCountdown();
-      }
-    }
+async function fetchData() {
+  try {
+    statusMsg.textContent = 'Memuat data...';
+    const res = await fetch(API_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
 
-    // countdown & auto refresh logic
-    function startCountdown(){
-      // clear previous interval
-      if(countdownTimer) clearInterval(countdownTimer);
-      updateTimerOnce();
+    const data = await res.json();
+    render(data);
 
-      countdownTimer = setInterval(() => {
-        const now = Date.now();
-        if(!nextUpdateAt) {
-          nextUpdateAt = now + 300000; // fallback 5min
-        }
-        const diff = Math.max(0, Math.floor((nextUpdateAt - now) / 1000));
-        updateTimerDisplay(diff);
-        if(diff <= 0){
-          // time's up -> fetch new data
-          fetchData();
-        }
-      }, 1000);
-    }
+    statusMsg.style.color = ''; // reset warna
+    statusMsg.textContent = 'Data berhasil dimuat.';
+  } catch (err) {
+    console.error(err);
+    statusMsg.style.color = '#f7d3d3';
+    statusMsg.textContent = '⚠️ Gagal memuat data: ' + err.message;
+    seedsGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat seeds</div>';
+    gearGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat gear</div>';
+  }
+}
 
-    function updateTimerOnce(){
-      const now = Date.now();
-      const diff = nextUpdateAt ? Math.max(0, Math.floor((nextUpdateAt - now) / 1000)) : 0;
-      updateTimerDisplay(diff);
-    }
+// auto refresh setiap 2 detik
+function startAutoRefresh() {
+  // hentikan interval lama jika ada
+  if (countdownTimer) clearInterval(countdownTimer);
 
-    function updateTimerDisplay(diffSeconds){
-      const m = Math.floor(diffSeconds / 60);
-      const s = diffSeconds % 60;
-      timerEl.textContent = `Auto refresh dalam ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    }
+  // langsung muat pertama kali
+  fetchData();
 
-    // manual refresh button
-    refreshNowBtn.addEventListener('click', () => {
-      // Immediately fetch data and reset countdown
-      fetchData();
-    });
+  // ulang setiap 2 detik
+  countdownTimer = setInterval(() => {
+    fetchData();
+  }, 2000);
+
+  // tampilkan status di layar
+  timerEl.textContent = "Auto refresh setiap 2 detik";
+}
+
+// tombol refresh manual
+refreshNowBtn.addEventListener('click', () => {
+  fetchData();
+});
+
+// mulai otomatis
+startAutoRefresh();
 
     // initial load
     fetchData();
