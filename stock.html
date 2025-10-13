@@ -165,21 +165,50 @@
         gearGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat gear</div>';
       }
     }
+let countdownTimer;
+const REFRESH_INTERVAL = 10000; // 10 detik
 
-    // auto refresh tiap 2 detik
-    function startAutoRefresh() {
-      if (countdownTimer) clearInterval(countdownTimer);
-      fetchData();
-      countdownTimer = setInterval(fetchData, 2000);
-      timerEl.textContent = "Auto refresh setiap 2 detik";
-    }
+// fetch data
+async function fetchData(){
+  try {
+    statusMsg.style.color = '#fff';
+    statusMsg.textContent = '🔄 Memuat data...';
+    
+    const res = await fetch(API_URL, { cache: "no-store" });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    
+    const data = await res.json();
+    render(data);
+    statusMsg.textContent = '✅ Data berhasil dimuat.';
+  } catch (err) {
+    console.error('Gagal memuat data:', err);
+    // jangan tampilkan error ke user, cukup tampil loading
+    statusMsg.style.color = '#fff';
+    statusMsg.textContent = '⏳ Memuat ulang data...';
+  }
+}
 
-    // tombol manual refresh
-    refreshNowBtn.addEventListener('click', fetchData);
+// auto refresh setiap 10 detik
+function startAutoRefresh(){
+  if(countdownTimer) clearInterval(countdownTimer);
 
-    // mulai otomatis
-    startAutoRefresh();
+  // langsung fetch pertama kali
+  fetchData();
 
+  // lalu fetch setiap 10 detik
+  countdownTimer = setInterval(() => {
+    fetchData();
+  }, REFRESH_INTERVAL);
+}
+
+// manual refresh button
+refreshNowBtn.addEventListener('click', () => {
+  fetchData();
+});
+
+// mulai auto-refresh saat halaman dimuat
+startAutoRefresh();
+   
     // hentikan interval saat keluar halaman
     window.addEventListener('beforeunload', () => {
       if (countdownTimer) clearInterval(countdownTimer);
