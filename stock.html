@@ -1,142 +1,249 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stock Seeds | Plants vs Brainrot</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stock Seeds & Gear | Plants vs Brainrot</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
-    body {
-      background: linear-gradient(135deg, #111, #1e1e1e);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
+    body{
+      min-height:100vh;
+      background: linear-gradient(135deg,#071021,#0f1f2b);
+      color:#e9f8ec;
+      padding:36px 18px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+    }
+    header{width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;flex-direction:column}
+    h1{font-size:1.4rem;color:#9ff77f}
+    p.lead{color:#bcdfb4;font-size:0.95rem}
+    .controls{display:flex;gap:8px;align-items:center}
+    .btn{
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.03);
+      color:inherit;padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer;
+      transition:transform .15s,filter .15s;
+    }
+    .btn:hover{transform:translateY(-4px);filter:brightness(1.08)}
+    .timer{font-size:0.95rem;color:#d7f5d2; margin-top:6px}
+
+    main{width:100%;max-width:1200px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:12px 0}
+    .section-title h2{font-size:1.05rem;color:#e6ffdd}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      text-align: center;
-      color: #9ff77f;
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 8px 24px rgba(0,0,0,0.45);transition:transform .2s,box-shadow .2s;
+      display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
+    }
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
+    .emoji{font-size:2rem}
+    .name{font-weight:700}
+    .qty{font-weight:600;color:#d7f5d2}
+    .empty{color:#b0c5ad; padding:20px;text-align:center}
+
+    .meta{
+      display:flex;gap:8px;align-items:center;font-size:0.9rem;color:#bcdfb4;margin-top:8px;
     }
 
-    .timer {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 25px;
-    }
+    footer{color:#9fbf9a;font-size:0.85rem;margin-top:20px}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 1200px;
-    }
+    /* loading skeleton */
+    .skeleton{height:12px;width:80%;background:linear-gradient(90deg,#233a2e,#1b2c23,#233a2e);border-radius:6px;opacity:.9}
+    @keyframes pulse{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+    .loading .skeleton{animation:pulse 1.2s infinite ease-in-out}
 
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .card h2 {
-      font-size: 1.2rem;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    .status {
-      font-weight: bold;
-      margin-top: 8px;
-    }
-
-    .ready { color: #5fff87; }
-    .out { color: #ff5f5f; }
-
-    footer {
-      margin-top: 40px;
-      font-size: 0.9rem;
-      color: #777;
-    }
-
-    .fade {
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width:480px){
+      header{flex-direction:column;align-items:flex-start;gap:8px}
+      .controls{width:100%;justify-content:space-between}
     }
   </style>
 </head>
 <body>
-  <h1>🌱 Stock Seeds</h1>
-  <div class="timer" id="timer">Auto refresh dalam 05:00</div>
+  <header>
+    <div class="brand">
+      <h1>🌱 Stock Seeds & Gear</h1>
+      <p class="lead">Data otomatis ambil dari API — refresh sesuai `nextUpdateAt`</p>
+      <div class="timer" id="timer">Memuat waktu update...</div>
+    </div>
 
-  <div class="grid" id="stockGrid">
-    <p>Sedang memuat data...</p>
-  </div>
+    <div class="controls">
+      <button class="btn" id="refreshNow">🔄 Refresh Now</button>
+      <a class="btn" href="/" id="backHome">⬅ Kembali ke Beranda</a>
+    </div>
+  </header>
 
-  <footer>© 2025 Plants vs Brainrot • Pasha Project</footer>
+  <main>
+    <section>
+      <div class="section-title"><h2>Seeds</h2></div>
+      <div id="seedsGrid" class="grid">
+        <div class="card loading"><div class="skeleton"></div></div>
+        <div class="card loading"><div class="skeleton"></div></div>
+        <div class="card loading"><div class="skeleton"></div></div>
+      </div>
+    </section>
+
+    <section style="margin-top:18px;">
+      <div class="section-title"><h2>Gear</h2></div>
+      <div id="gearGrid" class="grid">
+        <div class="card loading"><div class="skeleton"></div></div>
+        <div class="card loading"><div class="skeleton"></div></div>
+      </div>
+    </section>
+
+    <div id="statusMsg" style="margin-top:14px;color:#f7d3d3;"></div>
+  </main>
+
+  <footer>© 2025 Plants vs Brainrot • Pasha</footer>
 
   <script>
+    // ===== CONFIG =====
     const API_URL = "https://plantsvsbrainrot.com/api/seed-shop.php";
-    const grid = document.getElementById("stockGrid");
-    const timerEl = document.getElementById("timer");
-    let refreshInterval = 300; // 5 menit
+    const seedsGrid = document.getElementById('seedsGrid');
+    const gearGrid = document.getElementById('gearGrid');
+    const timerEl = document.getElementById('timer');
+    const statusMsg = document.getElementById('statusMsg');
+    const refreshNowBtn = document.getElementById('refreshNow');
 
-    async function fetchStock() {
+    // state
+    let nextUpdateAt = null; // timestamp ms from API
+    let countdownTimer = null;
+
+    // helper to create card HTML
+    function makeCard(item){
+      const div = document.createElement('div');
+      div.className = 'card';
+      const emoji = item.emoji ? `<div class="emoji">${item.emoji}</div>` : '';
+      const name = `<div class="name">${escapeHtml(item.name)}</div>`;
+      const qty = `<div class="qty">Qty: ${Number(item.qty)}</div>`;
+      div.innerHTML = `${emoji}${name}${qty}`;
+      return div;
+    }
+
+    // escape to avoid weird chars
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    // render arrays
+    function render(data){
+      // seeds
+      seedsGrid.innerHTML = '';
+      if(Array.isArray(data.seeds) && data.seeds.length){
+        data.seeds.forEach(s => seedsGrid.appendChild(makeCard(s)));
+      } else {
+        seedsGrid.innerHTML = '<div class="empty card">Tidak ada data seeds</div>';
+      }
+
+      // gear
+      gearGrid.innerHTML = '';
+      if(Array.isArray(data.gear) && data.gear.length){
+        data.gear.forEach(g => gearGrid.appendChild(makeCard(g)));
+      } else {
+        gearGrid.innerHTML = '<div class="empty card">Tidak ada data gear</div>';
+      }
+
+      // status message and nextUpdateAt
+      if(data.reportedAt) {
+        const reported = new Date(Number(data.reportedAt));
+        statusMsg.style.color = '#bcdfb4';
+        statusMsg.textContent = 'Last reported: ' + reported.toLocaleString();
+      } else {
+        statusMsg.textContent = '';
+      }
+      if(data.nextUpdateAt){
+        nextUpdateAt = Number(data.nextUpdateAt);
+      } else {
+        // fallback: 5 minutes from now
+        nextUpdateAt = Date.now() + 300000;
+      }
+
+      // start countdown
+      startCountdown();
+    }
+
+    // fetch data
+    async function fetchData(){
       try {
-        const res = await fetch(API_URL);
+        statusMsg.textContent = 'Memuat data...';
+        const res = await fetch(API_URL, {cache: "no-store"});
+        if(!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
-
-        grid.innerHTML = "";
-        data.forEach(seed => {
-          const card = document.createElement("div");
-          card.className = "card fade";
-          card.innerHTML = `
-            <h2>${seed.name}</h2>
-            <p>${seed.price ? `💰 ${seed.price}` : "Harga tidak diketahui"}</p>
-            <div class="status ${seed.status === 'Ready' ? 'ready' : 'out'}">
-              ${seed.status === 'Ready' ? '✅ Ready' : '❌ Out of Stock'}
-            </div>
-          `;
-          grid.appendChild(card);
-        });
+        render(data);
+        statusMsg.textContent = 'Data berhasil dimuat.';
       } catch (err) {
-        grid.innerHTML = `<p>⚠️ Gagal memuat data. Coba lagi nanti.</p>`;
         console.error(err);
+        statusMsg.style.color = '#f7d3d3';
+        statusMsg.textContent = 'Gagal memuat data: ' + err.message;
+        // show fallback UI
+        seedsGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat seeds</div>';
+        gearGrid.innerHTML = '<div class="empty card">⚠️ Gagal memuat gear</div>';
+        // fallback nextUpdateAt -> try again in 60s
+        nextUpdateAt = Date.now() + 60000;
+        startCountdown();
       }
     }
 
-    // Countdown Timer
-    let timeLeft = refreshInterval;
-    function updateTimer() {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      timerEl.textContent = `Auto refresh dalam ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      if (timeLeft <= 0) {
-        timeLeft = refreshInterval;
-        fetchStock();
-      }
-      timeLeft--;
+    // countdown & auto refresh logic
+    function startCountdown(){
+      // clear previous interval
+      if(countdownTimer) clearInterval(countdownTimer);
+      updateTimerOnce();
+
+      countdownTimer = setInterval(() => {
+        const now = Date.now();
+        if(!nextUpdateAt) {
+          nextUpdateAt = now + 300000; // fallback 5min
+        }
+        const diff = Math.max(0, Math.floor((nextUpdateAt - now) / 1000));
+        updateTimerDisplay(diff);
+        if(diff <= 0){
+          // time's up -> fetch new data
+          fetchData();
+        }
+      }, 1000);
     }
 
-    fetchStock();
-    setInterval(updateTimer, 1000);
+    function updateTimerOnce(){
+      const now = Date.now();
+      const diff = nextUpdateAt ? Math.max(0, Math.floor((nextUpdateAt - now) / 1000)) : 0;
+      updateTimerDisplay(diff);
+    }
+
+    function updateTimerDisplay(diffSeconds){
+      const m = Math.floor(diffSeconds / 60);
+      const s = diffSeconds % 60;
+      timerEl.textContent = `Auto refresh dalam ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    // manual refresh button
+    refreshNowBtn.addEventListener('click', () => {
+      // Immediately fetch data and reset countdown
+      fetchData();
+    });
+
+    // initial load
+    fetchData();
+
+    // friendly cleanup on unload
+    window.addEventListener('beforeunload', () => {
+      if(countdownTimer) clearInterval(countdownTimer);
+    });
   </script>
 </body>
 </html>
