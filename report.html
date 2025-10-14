@@ -1,87 +1,115 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aduan Bot Error | Plants vs Brainrot</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📝 Aduan Bot ke NGL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .container {
+      background: #1a1a1a;
+      padding: 24px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: #7CFC00;
+    }
+    input, textarea {
+      width: 100%;
+      background: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      color: #fff;
+      margin-top: 8px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      margin-top: 16px;
+      background: #7CFC00;
+      color: #111;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #6eea00;
+    }
+    .status {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  </style>
 </head>
-<body class="bg-gray-950 text-gray-100 flex items-center justify-center min-h-screen p-6">
-
-  <div class="bg-gray-900 p-6 rounded-2xl shadow-2xl w-full max-w-lg">
-    <h1 class="text-2xl font-bold mb-4 text-center">🐞 Aduan Bot Error</h1>
-    <p class="text-gray-400 text-sm text-center mb-6">
-      Laporkan error bot yang kamu temukan. Sertakan deskripsi & screenshot jika ada.
-    </p>
-
-    <form id="reportForm" class="space-y-4">
-      <input type="text" name="name" placeholder="Nama / ID Discord (opsional)"
-             class="w-full p-3 bg-gray-800 rounded-xl outline-none focus:ring-2 focus:ring-green-400" />
-
-      <textarea name="description" required placeholder="Deskripsikan error yang kamu temui..."
-                class="w-full h-32 p-3 bg-gray-800 rounded-xl outline-none focus:ring-2 focus:ring-green-400"></textarea>
-
-      <input type="file" name="screenshot" accept="image/*"
-             class="block w-full text-gray-400 text-sm file:bg-green-600 file:text-white file:rounded-lg file:px-3 file:py-2 file:border-0 cursor-pointer"/>
-
-      <button type="submit"
-              class="w-full bg-green-600 hover:bg-green-700 transition-all rounded-xl py-3 font-semibold">
-        🚀 Kirim Laporan
-      </button>
+<body>
+  <div class="container">
+    <h1>Aduan Bot ke NGL</h1>
+    <form id="reportForm">
+      <input type="text" id="name" name="name" placeholder="Nama / ID (opsional)" />
+      <textarea id="message" name="message" rows="5" placeholder="Tuliskan laporan kamu..." required></textarea>
+      <button type="submit">Kirim ke NGL 🚀</button>
     </form>
-
-    <p id="status" class="mt-4 text-center text-sm text-gray-400"></p>
+    <div class="status" id="status"> </div>
   </div>
 
   <script>
-    const form = document.getElementById('reportForm');
-    const status = document.getElementById('status');
+    const reportForm = document.getElementById("reportForm");
+    const statusEl = document.getElementById("status");
 
-    form.addEventListener('submit', async (e) => {
+    reportForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      status.textContent = "Mengirim laporan...";
+      statusEl.textContent = "Mengirim laporan…";
 
-      const name = form.name.value.trim();
-      const description = form.description.value.trim();
-      const file = form.screenshot.files[0];
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-      // Konversi screenshot ke base64 (jika ada)
-      let base64Image = null;
-      if (file) {
-        base64Image = await toBase64(file);
-      }
-
-      const payload = { name, description, screenshot: base64Image };
+      const fullMessage = name
+        ? `🔹 Dari: ${name}\n\n${message}`
+        : message;
 
       try {
-        // 🔗 Ganti URL di bawah dengan domain kamu di Vercel
-        const res = await fetch("https://panelcloud.xyz/api/report", {
+        const res = await fetch("https://ngl.link/api/submit", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            username: "plantvsbrainrot",
+            question: fullMessage,
+            deviceId: "anon-" + Math.random().toString(36).substring(2, 10),
+          }),
         });
 
-        const data = await res.json();
         if (res.ok) {
-          status.textContent = "✅ " + data.message;
-          form.reset();
+          statusEl.textContent = "✅ Laporan berhasil dikirim!";
+          reportForm.reset();
         } else {
-          status.textContent = "❌ " + (data.error || "Gagal mengirim laporan.");
+          statusEl.textContent = "❌ Gagal mengirim laporan.";
         }
       } catch (err) {
-        console.error(err);
-        status.textContent = "⚠️ Gagal terhubung ke server.";
+        console.error("Error mengirim ke NGL:", err);
+        statusEl.textContent = "⚠️ Terjadi kesalahan jaringan.";
       }
     });
-
-    function toBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
   </script>
 </body>
 </html>
