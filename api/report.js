@@ -8,7 +8,7 @@ async function connectDB() {
     client = new MongoClient(uri);
     await client.connect();
   }
-  return client.db("plantsvsbrainrot").collection("reports");
+  return client.db("pvb").collection("report");
 }
 
 export default async function handler(req, res) {
