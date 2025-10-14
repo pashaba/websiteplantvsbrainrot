@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGO_URI; // kita ambil dari environment variable
+const uri = process.env.MONGO_URL; // kita ambil dari environment variable
 let client;
 
 async function connectDB() {
