@@ -238,7 +238,7 @@ async function fetchData() {
 function startAutoRefresh() {
   if (countdownTimer) clearInterval(countdownTimer);
   fetchData();
-  countdownTimer = setInterval(fetchData, 2000);
+  countdownTimer = setInterval(fetchData, 30000);
   timerEl.textContent = "Auto refresh setiap 2 detik";
 }
 
