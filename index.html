@@ -3,207 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plants vs Brainrots | Pasha</title>
-<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, dan Aduan Error Bot.">
+<title>Plants vs Brainrots</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
     --primary: #4b6ef5;
-    --bg: #f9fafc;
-    --dark: #1a1a1a;
-    --light: #ffffff;
+    --bg: #f5f7fa;
+    --text: #1a1a1a;
+    --shadow: rgba(0, 0, 0, 0.1);
   }
 
   * {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
   }
 
   body {
     background: var(--bg);
-    color: var(--dark);
+    color: var(--text);
     overflow-x: hidden;
   }
 
-  /* === LOADING SCREEN === */
+  /* === LOADER === */
   #loader {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--light);
+    inset: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
     z-index: 9999;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    animation: fadeIn 0.5s ease;
   }
 
-  .spinner {
-    width: 60px;
-    height: 60px;
-    border: 6px solid #ddd;
-    border-top: 6px solid var(--primary);
+  .loader-circle {
+    width: 80px;
+    height: 80px;
+    border: 6px solid rgba(75,110,245,0.2);
+    border-top-color: var(--primary);
     border-radius: 50%;
-    animation: spin 1.2s linear infinite;
-    margin-bottom: 15px;
+    animation: spin 1.2s linear infinite, glow 2s ease-in-out infinite;
   }
 
-  #loader.fade-out {
-    opacity: 0;
-    visibility: hidden;
+  .loader-text {
+    margin-top: 18px;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    animation: fadeIn 1.5s infinite alternate;
   }
 
   @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  #loader p {
-    font-weight: 500;
-    color: #444;
-    letter-spacing: 0.5px;
-    animation: fadeText 2s ease-in-out infinite alternate;
+  @keyframes glow {
+    0%,100% { box-shadow: 0 0 0px rgba(75,110,245,0.3); }
+    50% { box-shadow: 0 0 15px rgba(75,110,245,0.6); }
   }
 
-  @keyframes fadeText {
-    from { opacity: 0.6; }
-    to { opacity: 1; }
+  @keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
   }
 
   /* === HEADER === */
   header {
-    background: var(--light);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     text-align: center;
-    padding: 60px 20px 80px;
-    border-radius: 0 0 50px 50px;
+    padding: 70px 20px 80px;
+    background: white;
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0 4px 10px var(--shadow);
     position: relative;
-    animation: fadeIn 1.2s ease forwards;
   }
 
   header h1 {
-    font-size: 2.6rem;
-    letter-spacing: 1px;
+    font-size: 2.5rem;
     font-weight: 700;
+    color: var(--primary);
+    animation: fadeDown 1s ease;
   }
 
   header p {
     color: #555;
+    font-size: 1rem;
     margin-top: 10px;
+    animation: fadeDown 1.3s ease;
   }
 
   .bot-status {
     position: absolute;
-    top: 15px;
-    right: 25px;
+    top: 15px; right: 25px;
     background: #eafbea;
-    color: #2a7c2a;
+    color: #218c21;
+    font-weight: 600;
     border-radius: 30px;
     padding: 6px 14px;
-    font-weight: 600;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     animation: pulse 2s infinite;
   }
 
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
+  /* === MAIN === */
   main {
-    max-width: 950px;
-    margin: auto;
-    padding: 60px 20px;
-    animation: fadeIn 1.5s ease forwards;
-  }
-
-  section {
-    margin-bottom: 60px;
     text-align: center;
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    color: var(--dark);
-  }
-
-  p {
-    color: #555;
-    line-height: 1.7;
-    max-width: 720px;
+    padding: 60px 20px;
+    max-width: 900px;
     margin: auto;
+  }
+
+  .intro h2 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .intro p {
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 30px;
   }
 
   .buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
-    margin-top: 25px;
+    justify-content: center;
   }
 
   .buttons a {
     background: var(--primary);
     color: white;
-    padding: 12px 22px;
-    border-radius: 14px;
     text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 14px;
     font-weight: 500;
+    transition: 0.3s;
     box-shadow: 0 6px 12px rgba(75,110,245,0.25);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
 
   .buttons a:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(75,110,245,0.3);
-  }
-
-  .ads-section {
-    background: var(--light);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(75,110,245,0.35);
   }
 
   footer {
     text-align: center;
-    background: #fff;
     padding: 25px;
+    background: white;
+    border-top: 2px solid var(--primary);
     color: #666;
-    font-size: 0.95em;
-    border-top: 3px solid var(--primary);
-    animation: fadeIn 1s ease forwards;
+    font-size: 0.95rem;
+    margin-top: 50px;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* Animasi dasar */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+  @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.6;} }
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 </style>
 </head>
-
 <body>
-  <!-- Loading Screen -->
   <div id="loader">
-    <div class="spinner"></div>
-    <p>Memuat halaman...</p>
+    <div class="loader-circle"></div>
+    <div class="loader-text">Memuat halaman...</div>
   </div>
 
   <header>
-    <div class="bot-status">🟢 Bot Status: Aktif</div>
+    <div class="bot-status">🟢 Bot Aktif</div>
     <h1>🌿 Plants vs Brainrots</h1>
     <p>By Pasha</p>
   </header>
@@ -218,27 +190,8 @@
         <a href="stock.html">🍍 Lihat Stock Live</a>
         <a href="report.html">📤 Aduan Bot Error</a>
         <a href="produk.html">🛒 Sewa Bot</a>
-        <a href="data.html">🔎 Owner Information</a>
+        <a href="data.html">🔎 Owner Info</a>
       </div>
-    </section>
-
-    <section class="ads-section">
-      <h3>Sponsored</h3>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-1771884647147524"
-           data-ad-slot="9862066892"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </section>
-
-    <section class="info">
-      <h2>Tentang Game</h2>
-      <p>
-        Plants Vs Brainrots adalah pengalaman Roblox unik yang menggabungkan elemen Tower Defence
-        dan Grow a Garden, di mana tanamanmu bertarung melawan Brainrots yang menyerang tamanmu!
-      </p>
     </section>
   </main>
 
@@ -247,28 +200,10 @@
   </footer>
 
   <script>
-    // Animasi loading saat pindah halaman
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
-      setTimeout(() => {
-        loader.classList.add("fade-out");
-      }, 800); // durasi 0.8 detik biar smooth
-    });
-
-    // Efek loading saat klik link
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", (e) => {
-        if (link.getAttribute("target") === "_blank") return; // biar link eksternal nggak ikut
-        e.preventDefault();
-        const url = link.getAttribute("href");
-        const loader = document.getElementById("loader");
-        loader.classList.remove("fade-out");
-        loader.style.visibility = "visible";
-        loader.style.opacity = "1";
-        setTimeout(() => {
-          window.location.href = url;
-        }, 500);
-      });
+      loader.style.animation = "fadeOut 0.8s forwards";
+      setTimeout(() => loader.remove(), 800);
     });
   </script>
 </body>
