@@ -4,34 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sewa Bot PVB | Plant vs Brainrots</title>
-<meta name="description" content="Sewa Bot PVB: Basic, Elite, dan Super. Support Grup/Saluran, otomatis stok, dengan pembayaran e-wallet dan konfirmasi via NGL.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
 body{
-  min-height:100vh;
   background:#f5f5f5;
   color:#111;
+  padding:36px 18px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:36px 18px;
   gap:24px;
 }
-header{text-align:center;animation:fadeInDown 1s ease;}
+header{text-align:center;animation: fadeInDown 1s ease;}
 header h1{font-size:2rem;color:#333;margin-bottom:6px;}
 header p{color:#555;font-size:1rem;}
-main{width:100%;max-width:1000px;display:flex;flex-direction:column;gap:24px;}
-.section-title h2{
-  font-size:1.5rem;color:#333;margin-bottom:12px;
-  border-bottom:2px solid #00bfa5;display:inline-block;padding-bottom:4px;
-}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
+  width:100%;
+  max-width:1000px;
 }
+
 .card{
   background:#fff;
   border-radius:16px;
@@ -41,89 +38,115 @@ main{width:100%;max-width:1000px;display:flex;flex-direction:column;gap:24px;}
   display:flex;
   flex-direction:column;
   gap:12px;
-  transition:transform .3s,box-shadow .3s;
-  animation:fadeInUp .8s ease;
+  transition:.3s;
+  animation: fadeInUp .8s ease;
 }
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,191,165,0.2);}
-.card h3{color:#00bfa5;font-size:1.2rem;}
+.card:hover{transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,191,165,0.2);}
+.card h3{color:#00bfa5;}
 .card ul{list-style:disc;padding-left:18px;color:#555;}
-.card .price{font-weight:700;color:#111;font-size:1.1rem;}
-button.order-btn{margin-top:12px;padding:10px 16px;background:#00bfa5;color:#fff;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:transform .2s,filter .2s;}
+.card .price{font-weight:700;color:#111;}
+button.order-btn{margin-top:12px;padding:10px 16px;background:#00bfa5;color:#fff;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:.2s;}
 button.order-btn:hover{transform:scale(1.03);filter:brightness(1.1);}
-footer{text-align:center;margin-top:20px;color:#555;font-size:0.85rem;}
-@keyframes fadeInUp{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
-@keyframes fadeInDown{0%{opacity:0;transform:translateY(-10px);}100%{opacity:1;transform:translateY(0);}}
 
-/* === POPUP === */
-.popup{
+footer{text-align:center;margin-top:20px;color:#555;font-size:0.85rem;}
+
+/* Popup */
+.popup-bg{
+  display:none;
   position:fixed;
-  top:0;left:0;width:100%;height:100%;
+  top:0;left:0;
+  width:100%;height:100%;
   background:rgba(0,0,0,0.6);
-  display:flex;align-items:center;justify-content:center;
-  visibility:hidden;opacity:0;
-  transition:opacity .3s ease, visibility .3s ease;
-  z-index:999;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
 }
-.popup.active{visibility:visible;opacity:1;}
-.popup-content{
+.popup{
   background:#fff;
-  padding:25px;
-  border-radius:14px;
-  max-width:400px;
+  border-radius:16px;
+  padding:20px 24px;
+  max-width:380px;
   width:90%;
-  text-align:center;
-  animation:fadeInUp .4s ease;
+  box-shadow:0 10px 40px rgba(0,0,0,0.25);
+  animation:fadeInUp .5s ease;
   position:relative;
 }
-.popup-content h3{color:#00bfa5;margin-bottom:10px;}
-.popup-content p{color:#444;margin-bottom:10px;}
-.copy-box{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#f0f0f0;
-  border-radius:8px;
-  padding:8px 12px;
-  margin-bottom:8px;
+.popup h2{
+  color:#00bfa5;
+  font-size:1.3rem;
+  margin-bottom:10px;
+  text-align:center;
 }
-.copy-box span{font-weight:600;color:#333;}
+.popup p{text-align:center;color:#444;margin-bottom:8px;}
+.popup small{color:#999;display:block;text-align:center;margin-bottom:14px;}
+.popup .warning{
+  background:#fff4e5;
+  color:#b36b00;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:12px;
+  font-size:0.9rem;
+  text-align:center;
+}
+.popup form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.popup input, .popup textarea{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:0.95rem;
+  width:100%;
+}
+.popup textarea{resize:none;}
+.copy-section{
+  background:#f0fdf9;
+  border:1px solid #00bfa5;
+  border-radius:10px;
+  padding:10px;
+  text-align:center;
+  margin-bottom:10px;
+}
+.copy-section span{
+  font-weight:600;
+  color:#00bfa5;
+}
 .copy-btn{
   background:#00bfa5;
   color:#fff;
   border:none;
   padding:6px 10px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:0.9rem;
-}
-.copy-btn:hover{filter:brightness(1.1);}
-.warning{
-  background:#fff3cd;
-  color:#856404;
-  border:1px solid #ffeeba;
-  padding:10px;
   border-radius:8px;
+  cursor:pointer;
+  margin-top:6px;
   font-size:0.9rem;
-  margin-top:8px;
 }
-.close-btn{
-  position:absolute;
-  top:8px;right:10px;
-  background:none;border:none;font-size:1.2rem;
-  cursor:pointer;color:#888;
-}
-.popup-content button.confirm-btn{
+.submit-btn{
   background:#00bfa5;
   color:#fff;
   border:none;
-  padding:10px 16px;
-  border-radius:8px;
-  cursor:pointer;
-  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
   font-weight:600;
+  cursor:pointer;
+  transition:.2s;
 }
-.popup-content button.confirm-btn:hover{transform:scale(1.03);filter:brightness(1.1);}
-.cs-contact{margin-top:10px;color:#333;font-size:0.9rem;}
+.submit-btn:hover{transform:scale(1.03);filter:brightness(1.1);}
+.close-btn{
+  position:absolute;
+  top:10px;right:14px;
+  background:none;
+  border:none;
+  font-size:1.2rem;
+  cursor:pointer;
+  color:#888;
+}
+
+/* Animations */
+@keyframes fadeInUp{0%{opacity:0; transform:translateY(10px);}100%{opacity:1; transform:translateY(0);}}
+@keyframes fadeInDown{0%{opacity:0; transform:translateY(-10px);}100%{opacity:1; transform:translateY(0);}}
 </style>
 </head>
 <body>
@@ -133,44 +156,40 @@ footer{text-align:center;margin-top:20px;color:#555;font-size:0.85rem;}
   <p>Pilih paket sesuai kebutuhanmu, lakukan pembayaran, dan konfirmasi ke NGL</p>
 </header>
 
-<main>
-  <section class="section-title"><h2>Paket Bot</h2></section>
-  <div class="grid">
-    <div class="card">
-      <h3>Paket Basic</h3>
-      <ul>
-        <li>Support Grup/Saluran</li>
-        <li>5 menit sekali ngasih stock</li>
-        <li>Aktif 3 minggu</li>
-      </ul>
-      <div class="price">Harga: 10K</div>
-      <button class="order-btn" onclick="openPopup('Basic', 10000)">Order Sekarang</button>
-    </div>
-
-    <div class="card">
-      <h3>Paket Elite</h3>
-      <ul>
-        <li>Support Grup/Saluran</li>
-        <li>Support 5 menit sekali/hanya rare doang</li>
-        <li>Aktif 1 bulan</li>
-      </ul>
-      <div class="price">Harga: 20K</div>
-      <button class="order-btn" onclick="openPopup('Elite', 20000)">Order Sekarang</button>
-    </div>
-
-    <div class="card">
-      <h3>Paket Super</h3>
-      <ul>
-        <li>Support Grup/Saluran</li>
-        <li>Support 5 menit sekali/hanya rare</li>
-        <li>Support Custom Button</li>
-        <li>Aktif 1 bulan</li>
-      </ul>
-      <div class="price">Harga: 30K</div>
-      <button class="order-btn" onclick="openPopup('Super', 30000)">Order Sekarang</button>
-    </div>
+<div class="grid">
+  <div class="card">
+    <h3>Paket Basic</h3>
+    <ul>
+      <li>Support Grup/Saluran</li>
+      <li>5 menit sekali ngasih stock</li>
+      <li>Aktif 3 minggu</li>
+    </ul>
+    <div class="price">Harga: 10K</div>
+    <button class="order-btn" onclick="openPopup('Basic', '10K')">Order Sekarang</button>
   </div>
-</main>
+
+  <div class="card">
+    <h3>Paket Elite</h3>
+    <ul>
+      <li>Support Grup/Saluran</li>
+      <li>Support rare only (5 menit)</li>
+      <li>Aktif 1 bulan</li>
+    </ul>
+    <div class="price">Harga: 20K</div>
+    <button class="order-btn" onclick="openPopup('Elite', '20K')">Order Sekarang</button>
+  </div>
+
+  <div class="card">
+    <h3>Paket Super</h3>
+    <ul>
+      <li>Support Grup/Saluran</li>
+      <li>Support Custom Button</li>
+      <li>Aktif 1 bulan</li>
+    </ul>
+    <div class="price">Harga: 30K</div>
+    <button class="order-btn" onclick="openPopup('Super', '30K')">Order Sekarang</button>
+  </div>
+</div>
 
 <footer>
   <p>📞 085715294026 | ✉️ pasha@example.com</p>
@@ -178,64 +197,84 @@ footer{text-align:center;margin-top:20px;color:#555;font-size:0.85rem;}
 </footer>
 
 <!-- POPUP -->
-<div class="popup" id="popup">
-  <div class="popup-content">
+<div class="popup-bg" id="popupBg">
+  <div class="popup">
     <button class="close-btn" onclick="closePopup()">✖</button>
-    <h3>💰 Pembayaran</h3>
-    <p id="popupPaket">Paket:</p>
-    <p id="popupHarga"></p>
+    <h2>Konfirmasi Pembayaran</h2>
+    <p id="paketTitle"></p>
+    <small>Silakan isi form di bawah ini</small>
 
-    <div class="copy-box"><span id="danaNum">085715294026</span><button class="copy-btn" onclick="copyText('danaNum')">Salin</button></div>
-    <div class="copy-box"><span id="spayNum">085715294026</span><button class="copy-btn" onclick="copyText('spayNum')">Salin</button></div>
-    <div class="copy-box"><span id="gopayNum">085715294026</span><button class="copy-btn" onclick="copyText('gopayNum')">Salin</button></div>
+    <div class="warning">⚠️ Harap transfer ke nomor di bawah sebelum kirim konfirmasi!</div>
 
-    <div class="warning">⚠️ Harap transfer ke nomor di atas sebelum mengirim konfirmasi.</div>
-    <div class="cs-contact">📞 Customer Service: <b>085715294026</b></div>
+    <div class="copy-section">
+      <p>DANA / GOPAY / SPay:</p>
+      <span id="walletNumber">085715294026</span><br>
+      <button class="copy-btn" onclick="copyNumber()">Salin Nomor</button>
+    </div>
 
-    <button class="confirm-btn" onclick="sendToNGL()">Kirim Konfirmasi 🚀</button>
+    <form id="popupForm">
+      <input type="text" name="nama" placeholder="Nama kamu" required>
+      <input type="email" name="email" placeholder="Email (gmail)" required>
+      <input type="text" name="nomor" placeholder="Nomor yang bisa dihubungi" required>
+      <input type="text" name="link" placeholder="Link grup / saluran" required>
+      <input type="text" name="paket" id="paketInput" readonly>
+      <input type="text" name="harga" id="hargaInput" readonly>
+      <textarea name="konfirmasi" rows="3" placeholder="Tuliskan bukti atau catatan pembayaran..." required></textarea>
+      <button class="submit-btn" type="submit">Kirim Konfirmasi 🚀</button>
+      <p id="statusMsg" style="text-align:center;margin-top:6px;"></p>
+    </form>
+    <p style="text-align:center;margin-top:10px;color:#555;">CS: <b>085715294026</b></p>
   </div>
 </div>
 
 <script>
-let selectedPackage = "";
-let selectedPrice = "";
-
 function openPopup(paket, harga){
-  selectedPackage = paket;
-  selectedPrice = harga;
-  document.getElementById("popupPaket").textContent = "Paket: " + paket;
-  document.getElementById("popupHarga").textContent = "Harga: " + harga + "K";
-  document.getElementById("popup").classList.add("active");
+  document.getElementById('popupBg').style.display = 'flex';
+  document.getElementById('paketTitle').innerText = `Paket ${paket} - ${harga}`;
+  document.getElementById('paketInput').value = paket;
+  document.getElementById('hargaInput').value = harga;
 }
 function closePopup(){
-  document.getElementById("popup").classList.remove("active");
+  document.getElementById('popupBg').style.display = 'none';
 }
-function copyText(id){
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text);
-  alert("✅ Nomor berhasil disalin: " + text);
+
+function copyNumber(){
+  const num = document.getElementById("walletNumber").innerText;
+  navigator.clipboard.writeText(num);
+  alert("✅ Nomor berhasil disalin: " + num);
 }
-function sendToNGL(){
+
+const popupForm = document.getElementById("popupForm");
+popupForm.addEventListener("submit", (e)=>{
+  e.preventDefault();
+  const msg = document.getElementById("statusMsg");
+  msg.textContent = "⏳ Mengirim konfirmasi...";
+
   const data = {
-    paket: selectedPackage,
-    harga: selectedPrice + "K",
-    konfirmasi: "Pembayaran telah dilakukan."
+    nama: popupForm.nama.value,
+    email: popupForm.email.value,
+    nomor: popupForm.nomor.value,
+    link: popupForm.link.value,
+    paket: popupForm.paket.value,
+    harga: popupForm.harga.value,
+    konfirmasi: popupForm.konfirmasi.value
   };
+
   fetch("https://ngl.link/api/submit",{
     method:"POST",
     headers:{"Content-Type":"application/x-www-form-urlencoded"},
     body:new URLSearchParams({
       username:"plantvsbrainrot",
-      question:JSON.stringify(data),
+      question: JSON.stringify(data),
       deviceId:"anon-"+Math.random().toString(36).substring(2,10)
     })
   }).then(()=>{
-    alert("✅ Konfirmasi berhasil dikirim!");
-    closePopup();
+    msg.textContent = "✅ Konfirmasi berhasil dikirim!";
+    popupForm.reset();
   }).catch(()=>{
-    alert("⚠️ Terjadi kesalahan, tapi data mungkin terkirim.");
+    msg.textContent = "⚠️ Gagal mengirim. Coba lagi.";
   });
-}
+});
 </script>
 
 </body>
