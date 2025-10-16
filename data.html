@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plant vs Brainrots | Owner Info</title>
+<meta name="description" content="Plant vs Brainrots owner info, follow account to join my game, and bot update logs.">
+<!-- Open Graph untuk preview WhatsApp/Facebook -->
+<meta property="og:title" content="Plant vs Brainrots | Owner Info">
+<meta property="og:description" content="Follow my Roblox account to join my game and see live bot update logs!">
+<meta property="og:image" content="https://files.cloudkuimages.guru/images/db852d10e15a.jpg">
+<meta property="og:url" content="https://panelcloud.xyz">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  min-height:100vh;
+  background: linear-gradient(135deg,#071021,#0f1f2b);
+  color:#e9f8ec;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:36px 18px;
+  gap:24px;
+}
+
+header{
+  width:100%; max-width:900px;
+  display:flex; flex-direction:column;
+  align-items:center; gap:12px;
+  animation: fadeInDown 1s ease;
+}
+header h1{color:#9ff77f; font-size:2rem;}
+header p.lead{color:#bcdfb4; font-size:1rem;}
+header a.btn-follow{
+  display:inline-block;
+  margin-top:8px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.03);
+  color:#00ff88;
+  padding:10px 16px;
+  border-radius:12px;
+  font-weight:600;
+  text-decoration:none;
+  transition:transform .2s, filter .2s, box-shadow .2s;
+}
+header a.btn-follow:hover{
+  transform:translateY(-4px) scale(1.03);
+  filter:brightness(1.2);
+  box-shadow:0 6px 20px rgba(0,255,127,0.3);
+}
+
+main{
+  width:100%; max-width:900px;
+  display:flex; flex-direction:column; gap:24px;
+}
+
+section.card{
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border-radius:18px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  animation: fadeInUp 0.8s ease;
+  display:flex; flex-direction:column;
+  gap:12px;
+}
+
+.owner-info{
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+
+.owner-info img{
+  width:120px; height:120px; border-radius:50%;
+  border:2px solid #00ff88;
+  animation: bounce 1.5s infinite alternate;
+}
+
+.owner-info h2{color:#c6ffc2;}
+.owner-info a{color:#00ff88; text-decoration:none; font-weight:600;}
+.owner-info a:hover{text-decoration:underline;}
+
+.logs{
+  max-height:300px;
+  overflow-y:auto;
+  background:rgba(0,0,0,0.15);
+  border-radius:12px;
+  padding:12px;
+  font-family:monospace;
+  font-size:0.95rem;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.logs .log-entry{
+  margin-bottom:8px;
+  animation: fadeInUp 0.6s ease;
+}
+
+.logs .log-date{color:#9ff77f; font-weight:600;}
+.logs .log-text{color:#e9f8ec;}
+
+footer{
+  color:#9fbf9a;
+  font-size:0.85rem;
+  margin-top:20px;
+  text-align:center;
+}
+
+/* Animations */
+@keyframes bounce{0%{transform:translateY(0)}100%{transform:translateY(-10px)}}
+@keyframes fadeInUp{0%{opacity:0; transform:translateY(10px)}100%{opacity:1; transform:translateY(0)}}
+@keyframes fadeInDown{0%{opacity:0; transform:translateY(-10px)}100%{opacity:1; transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌱 Plant vs Brainrots</h1>
+  <p class="lead">Follow account to join my game</p>
+  <a class="btn-follow" href="https://www.roblox.com/users/7664651236/profile?friendshipSourceType=PlayerSearch" target="_blank">Follow pasharil7 on Roblox</a>
+</header>
+
+<main>
+  <section class="card owner-info">
+    <img src="https://www.roblox.com/headshot-thumbnail/image?userId=7664651236&width=150&height=150&format=png" alt="Owner Avatar">
+    <h2>Pasha Ril7</h2>
+    <p>Owner & Creator of Plant vs Brainrots</p>
+    <a href="https://www.roblox.com/users/7664651236/profile?friendshipSourceType=PlayerSearch" target="_blank">Visit Profile</a>
+  </section>
+
+  <section class="card">
+    <h3>Bot Update Logs</h3>
+    <div class="logs" id="botLogs">
+      <!-- Log entries akan ditambahkan di sini -->
+      <div class="log-entry"><span class="log-date">[16 Oct 2025]</span> <span class="log-text">Bot started with new stock refresh system.</span></div>
+      <div class="log-entry"><span class="log-date">[15 Oct 2025]</span> <span class="log-text">Added new fusion plants data.</span></div>
+      <div class="log-entry"><span class="log-date">[14 Oct 2025]</span> <span class="log-text">Improved UI animations for stock page.</span></div>
+    </div>
+  </section>
+</main>
+
+<footer>© 2025 Plant vs Brainrots • Pasha</footer>
+
+<script>
+// Contoh menambahkan log baru secara dinamis
+function addBotLog(date, text){
+  const logsContainer = document.getElementById('botLogs');
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `<span class="log-date">[${date}]</span> <span class="log-text">${text}</span>`;
+  logsContainer.prepend(entry); // baru di atas
+}
+
+// Contoh penggunaan: menambah log baru setiap 5 detik
+let counter = 1;
+setInterval(() => {
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'});
+  addBotLog(dateStr, `Automated log entry #${counter}`);
+  counter++;
+}, 5000);
+</script>
+
+</body>
+  </html>
