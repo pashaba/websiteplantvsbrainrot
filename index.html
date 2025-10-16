@@ -3,26 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Plant vs Brainrots</title>
-<meta name="description" content="Plant vs Brainrot website with stock live and FAQ">
-
+<title>Plants vs Brainrots | Pasha</title>
+<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, dan Aduan Error Bot.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --bg: #f8f9fb;
     --primary: #4b6ef5;
+    --bg: #f9fafc;
     --dark: #1a1a1a;
     --light: #ffffff;
-    --shadow: rgba(0, 0, 0, 0.1);
   }
 
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     scroll-behavior: smooth;
   }
 
@@ -30,111 +27,77 @@
     background: var(--bg);
     color: var(--dark);
     overflow-x: hidden;
-    animation: fadeInBody 1.2s ease forwards;
   }
 
   /* === LOADING SCREEN === */
   #loader {
     position: fixed;
-    inset: 0;
-    background: linear-gradient(135deg, #4b6ef5, #6f8cf8, #4b6ef5);
-    background-size: 200% 200%;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--light);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     z-index: 9999;
-    animation: bgShift 4s ease infinite;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
   }
 
-  @keyframes bgShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .loader-content {
-    text-align: center;
-    color: white;
-    animation: fadeIn 1s ease;
-  }
-
-  .loader-icon {
-    width: 80px;
-    height: 80px;
-    border: 5px solid rgba(255,255,255,0.3);
-    border-top-color: white;
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #ddd;
+    border-top: 6px solid var(--primary);
     border-radius: 50%;
-    margin: 0 auto 15px;
-    animation: spin 1.5s linear infinite;
+    animation: spin 1.2s linear infinite;
+    margin-bottom: 15px;
   }
 
-  .loader-text {
-    font-weight: 600;
-    letter-spacing: 1px;
-    animation: pulse 1.5s infinite;
+  #loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
   }
 
   @keyframes spin {
-    0% { transform: rotate(0); }
-    100% { transform: rotate(360deg); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-
-  @keyframes fadeOut {
-    from { opacity: 1; visibility: visible; }
-    to { opacity: 0; visibility: hidden; }
-  }
-
-  /* === Header === */
-  header {
-    background: var(--light);
-    box-shadow: 0 4px 20px var(--shadow);
-    text-align: center;
-    padding: 60px 20px 80px;
-    border-radius: 0 0 50px 50px;
-    position: relative;
-    overflow: hidden;
-    animation: floatHeader 6s ease-in-out infinite alternate;
-  }
-
-  header::before {
-    content: "";
-    position: absolute;
-    width: 180%;
-    height: 200%;
-    top: -70%;
-    left: -40%;
-    background: radial-gradient(circle at center, rgba(75,110,245,0.15), transparent 60%);
-    animation: rotateBg 20s linear infinite;
-    z-index: 0;
-  }
-
-  @keyframes rotateBg {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
-  header h1 {
-    font-size: 2.8rem;
+  #loader p {
+    font-weight: 500;
+    color: #444;
+    letter-spacing: 0.5px;
+    animation: fadeText 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes fadeText {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+  }
+
+  /* === HEADER === */
+  header {
+    background: var(--light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    padding: 60px 20px 80px;
+    border-radius: 0 0 50px 50px;
     position: relative;
-    z-index: 2;
-    animation: fadeDown 1s ease;
+    animation: fadeIn 1.2s ease forwards;
+  }
+
+  header h1 {
+    font-size: 2.6rem;
+    letter-spacing: 1px;
+    font-weight: 700;
   }
 
   header p {
     color: #555;
-    font-size: 1rem;
-    margin-top: 8px;
-    z-index: 2;
-    position: relative;
-    animation: fadeDown 1.4s ease;
+    margin-top: 10px;
   }
 
-  /* === Bot Status === */
   .bot-status {
     position: absolute;
     top: 15px;
@@ -148,41 +111,38 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 0 10px rgba(0,255,0,0.15);
     animation: pulse 2s infinite;
-    z-index: 2;
   }
 
-  /* === Sections === */
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
   main {
-    max-width: 1000px;
+    max-width: 950px;
     margin: auto;
     padding: 60px 20px;
+    animation: fadeIn 1.5s ease forwards;
   }
 
   section {
-    margin-bottom: 70px;
+    margin-bottom: 60px;
     text-align: center;
-    animation: fadeUp 1s ease;
   }
 
   h2 {
-    font-size: 1.9rem;
+    font-size: 2rem;
+    margin-bottom: 12px;
     color: var(--dark);
-    margin-bottom: 15px;
-    position: relative;
-    display: inline-block;
   }
 
-  h2::after {
-    content: "";
-    position: absolute;
-    width: 40%;
-    height: 3px;
-    background: var(--primary);
-    bottom: -8px;
-    left: 30%;
-    border-radius: 2px;
+  p {
+    color: #555;
+    line-height: 1.7;
+    max-width: 720px;
+    margin: auto;
   }
 
   .buttons {
@@ -211,32 +171,35 @@
     box-shadow: 0 10px 20px rgba(75,110,245,0.3);
   }
 
+  .ads-section {
+    background: var(--light);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+
   footer {
     text-align: center;
     background: #fff;
-    box-shadow: 0 -3px 10px rgba(0,0,0,0.05);
     padding: 25px;
     color: #666;
     font-size: 0.95em;
     border-top: 3px solid var(--primary);
+    animation: fadeIn 1s ease forwards;
   }
 
-  /* Animasi tambahan */
-  @keyframes fadeInBody { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes floatHeader { from { transform: translateY(0px); } to { transform: translateY(10px); } }
-
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 
 <body>
-  <!-- LOADER -->
+  <!-- Loading Screen -->
   <div id="loader">
-    <div class="loader-content">
-      <div class="loader-icon"></div>
-      <div class="loader-text">Loading Plants vs Brainrots...</div>
-    </div>
+    <div class="spinner"></div>
+    <p>Memuat halaman...</p>
   </div>
 
   <header>
@@ -248,20 +211,34 @@
   <main>
     <section class="intro">
       <h2>Selamat Datang!</h2>
-      <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif..</p>
+      <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif.</p>
       <div class="buttons">
-        <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank" class="nav-link">💬 Saluran WhatsApp</a>
-        <a href="faq.html" class="nav-link">📘 Lihat FAQ & Codes</a>
-        <a href="stock.html" class="nav-link">🍍 Lihat Stock Live</a>
-        <a href="report.html" class="nav-link">📤 Aduan Bot Error</a>
-        <a href="produk.html" class="nav-link">🛒 Sewa Bot</a>
-        <a href="data.html" class="nav-link">🔎 Owner Information</a>
+        <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank">💬 Saluran WhatsApp</a>
+        <a href="faq.html">📘 Lihat FAQ & Codes</a>
+        <a href="stock.html">🍍 Lihat Stock Live</a>
+        <a href="report.html">📤 Aduan Bot Error</a>
+        <a href="produk.html">🛒 Sewa Bot</a>
+        <a href="data.html">🔎 Owner Information</a>
       </div>
+    </section>
+
+    <section class="ads-section">
+      <h3>Sponsored</h3>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-1771884647147524"
+           data-ad-slot="9862066892"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </section>
 
     <section class="info">
       <h2>Tentang Game</h2>
-      <p>Plants Vs Brainrots adalah game Roblox yang menggabungkan strategi dan tower defense. Tanam, lawan brainrot, dan upgrade kebunmu untuk melawan invasi mereka!</p>
+      <p>
+        Plants Vs Brainrots adalah pengalaman Roblox unik yang menggabungkan elemen Tower Defence
+        dan Grow a Garden, di mana tanamanmu bertarung melawan Brainrots yang menyerang tamanmu!
+      </p>
     </section>
   </main>
 
@@ -270,30 +247,27 @@
   </footer>
 
   <script>
-    // Saat halaman sudah siap, hilangkan loader
+    // Animasi loading saat pindah halaman
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
-      loader.style.animation = "fadeOut 0.8s forwards";
-      setTimeout(() => loader.remove(), 800);
+      setTimeout(() => {
+        loader.classList.add("fade-out");
+      }, 800); // durasi 0.8 detik biar smooth
     });
 
-    // Efek loading sebelum pindah halaman
-    document.querySelectorAll("a.nav-link").forEach(link => {
+    // Efek loading saat klik link
+    document.querySelectorAll("a[href]").forEach(link => {
       link.addEventListener("click", (e) => {
+        if (link.getAttribute("target") === "_blank") return; // biar link eksternal nggak ikut
         e.preventDefault();
-        const target = e.currentTarget.getAttribute("href");
-        document.body.insertAdjacentHTML("beforeend", `
-          <div id="pageTransition" style="
-            position:fixed; inset:0;
-            background:rgba(75,110,245,0.9);
-            display:flex; justify-content:center; align-items:center;
-            color:#fff; font-weight:600; font-size:1.3rem;
-            animation: fadeIn 0.4s forwards;
-            z-index:99999;">Loading Page...</div>
-        `);
+        const url = link.getAttribute("href");
+        const loader = document.getElementById("loader");
+        loader.classList.remove("fade-out");
+        loader.style.visibility = "visible";
+        loader.style.opacity = "1";
         setTimeout(() => {
-          window.location.href = target;
-        }, 800);
+          window.location.href = url;
+        }, 500);
       });
     });
   </script>
