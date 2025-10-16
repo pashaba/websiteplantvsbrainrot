@@ -1,184 +1,175 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <!-- CMP & Ezoic -->
-  <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-  <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-  <script>
-    window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plants vs Brainrots - Info, Codes, and More!">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Plants vs Brainrots - Info, Codes, and More!" />
   <title>Plants vs Brainrots | Modern Edition</title>
 
-  <!-- Google AdSense -->
-  <meta name="google-adsense-account" content="ca-pub-1771884647147524">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524" crossorigin="anonymous"></script>
-
-  <!-- AMP Auto Ads -->
-  <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
-
-  <!-- Style -->
+  <!-- Font & Style -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* 🌑 Global */
+    /* === Base Layout === */
     * {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
+
     body {
-      background: radial-gradient(circle at top, #0a0f0a, #000);
-      color: #e7ffe7;
+      background: #f4f5f7;
+      color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* 🌿 Header */
     header {
       text-align: center;
-      padding: 60px 20px 30px;
-      animation: fadeIn 1.5s ease forwards;
+      padding: 40px 20px 20px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: relative;
+      animation: fadeDown 0.8s ease forwards;
     }
+
     header h1 {
-      font-size: 2.6rem;
-      color: #8eff8e;
-      text-shadow: 0 0 10px #00ff88, 0 0 30px #00ff88;
+      font-size: 2.2em;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
+
     header p {
-      color: #aaa;
+      color: #555;
       margin-top: 6px;
-      font-size: 1rem;
+      font-size: 0.95em;
     }
 
-    /* ✨ Intro Section */
-    main {
-      text-align: center;
-      padding: 20px;
-      animation: fadeIn 1.5s ease forwards;
-    }
-    section.intro h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      color: #00ff99;
-    }
-    section.intro p {
-      max-width: 500px;
-      margin: 0 auto 20px;
-      color: #ccc;
-      font-size: 1rem;
-    }
-
-    /* 🌐 Buttons */
-    .buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 30px;
-    }
-    .buttons a {
-      background: #00ff99;
-      color: #0a0a0a;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 10px #00ff88;
-    }
-    .buttons a:hover {
-      transform: translateY(-3px);
-      background: #33ffb3;
-      box-shadow: 0 0 20px #00ffcc;
-    }
-
-    /* 📡 Status Bot */
+    /* === Bot Status === */
     .bot-status {
-      margin: 30px auto;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: #eafbea;
+      color: #2a7c2a;
+      font-weight: 600;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.9em;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 1.1rem;
-    }
-    .status-dot {
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: #ff4444;
-      box-shadow: 0 0 10px #ff4444;
+      gap: 6px;
       animation: pulse 2s infinite;
     }
-    .status-text {
-      color: #ddd;
-    }
-    .active {
-      background: #00ff88 !important;
-      box-shadow: 0 0 15px #00ff88 !important;
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    /* 🪴 Info Section */
-    section.info {
-      margin: 60px auto;
-      max-width: 700px;
-      padding: 20px;
-      line-height: 1.6;
-      background: rgba(0, 50, 0, 0.2);
-      border: 1px solid rgba(0, 255, 150, 0.3);
-      border-radius: 14px;
-      box-shadow: 0 0 30px rgba(0,255,150,0.15);
-      animation: float 6s ease-in-out infinite;
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      animation: fadeUp 1s ease forwards;
     }
 
-    section.info h2 {
-      color: #00ff99;
-      margin-bottom: 10px;
-      font-size: 1.7rem;
-    }
-    section.info p {
-      color: #bbb;
-      font-size: 1rem;
-    }
-
-    /* 📢 Ads Section */
-    .ads-section {
-      margin: 50px auto;
+    section {
+      margin-bottom: 50px;
       text-align: center;
     }
-    .ads-section h3 {
-      color: #00ff99;
-      margin-bottom: 10px;
+
+    h2 {
+      font-size: 1.6em;
+      margin-bottom: 15px;
+      color: #222;
     }
 
-    /* 🦶 Footer */
+    p {
+      font-size: 1em;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    /* === Buttons === */
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .buttons a {
+      background: #4a73e8;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .buttons a:hover {
+      background: #3859c5;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(74, 115, 232, 0.3);
+    }
+
+    /* === Ads Section === */
+    .ads-section {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .ads-section h3 {
+      margin-bottom: 15px;
+      color: #222;
+    }
+
     footer {
       text-align: center;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
       color: #666;
-      padding: 40px 10px;
-      font-size: 0.9rem;
+      font-size: 0.9em;
     }
 
-    /* 🌈 Animations */
-    @keyframes fadeIn {
+    /* === Animations === */
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+      .buttons a { padding: 10px 14px; font-size: 0.9em; }
     }
   </style>
+
+  <!-- AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-1771884647147524" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524" crossorigin="anonymous"></script>
 </head>
 <body>
+
   <header>
+    <div class="bot-status">
+      🟢 Bot Status: Aktif
+    </div>
     <h1>🌿 Plants vs Brainrots</h1>
     <p>By Pasha.</p>
   </header>
@@ -186,72 +177,35 @@
   <main>
     <section class="intro">
       <h2>Selamat Datang!</h2>
-      <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif.</p>
+      <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif hanya di sini.</p>
+
       <div class="buttons">
         <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank">💬 Saluran WhatsApp</a>
-        <a href="faq.html">📘 Lihat FAQ & Codes</a>
+        <a href="faq.html">📘 FAQ & Codes</a>
         <a href="stock.html">🍍 Lihat Stock Live</a>
         <a href="report.html">📤 Aduan Bot Error</a>
       </div>
     </section>
 
-    <!-- 📡 Bot Status -->
-    <div class="bot-status">
-      <div class="status-dot" id="botDot"></div>
-      <span class="status-text" id="botText">Mengecek status bot...</span>
-    </div>
-
-    <!-- 📢 Ads -->
     <section class="ads-section">
       <h3>Sponsored</h3>
       <ins class="adsbygoogle"
         style="display:block"
         data-ad-client="ca-pub-1771884647147524"
-        data-ad-slot="1234567890"
+        data-ad-slot="9862066892"
         data-ad-format="auto"
         data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </section>
 
-    <!-- 🪴 Info -->
     <section class="info">
       <h2>Tentang Game</h2>
-      <p>Plants vs Brainrots adalah dunia unik penuh tanaman lucu dan makhluk aneh. Nikmati kombinasi strategi dan humor dalam gaya yang elegan dan modern.</p>
+      <p>Plants vs Brainrots adalah dunia unik penuh tanaman lucu dan makhluk aneh. Nikmati kombinasi strategi, humor, dan gaya yang modern.</p>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Plants vs Brainrots • Crafted by Pasha 🌱</p>
+    <p>© 2025 Plants vs Brainrots — Pasha</p>
   </footer>
-
-  <amp-auto-ads type="adsense" data-ad-client="ca-pub-1771884647147524"></amp-auto-ads>
-
-  <!-- 🔄 Script Status Bot -->
-  <script>
-    async function cekStatusBot() {
-      const dot = document.getElementById("botDot");
-      const text = document.getElementById("botText");
-
-      try {
-        // Ganti URL di bawah kalau kamu punya endpoint status bot sendiri
-        const res = await fetch("https://panelcloud.xyz/api/status");
-        const data = await res.json();
-
-        if (data?.status === "online" || data?.active) {
-          dot.classList.add("active");
-          text.textContent = "Bot sedang aktif ✅";
-        } else {
-          dot.classList.remove("active");
-          text.textContent = "Bot sedang offline ❌";
-        }
-      } catch {
-        dot.classList.remove("active");
-        text.textContent = "Bot tidak merespons ⚠️";
-      }
-    }
-
-    cekStatusBot();
-    setInterval(cekStatusBot, 30000); // refresh setiap 30 detik
-  </script>
 </body>
 </html>
