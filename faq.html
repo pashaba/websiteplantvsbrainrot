@@ -1,26 +1,179 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ & Codes | Plants vs Brainrots</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ & Codes | Plants vs Brainrots</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif;}
+  body{
+    min-height:100vh;
+    background:#f0f4f8;
+    color:#333;
+    padding:36px 18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:24px;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  header{
+    width:100%;
+    max-width:900px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  header h1{
+    font-size:2rem;
+    color:#4caf50;
+  }
+
+  header p{
+    color:#555;
+    font-size:1rem;
+  }
+
+  .btn-back{
+    display:inline-block;
+    background:#ffffff;
+    border:1px solid #ddd;
+    padding:8px 16px;
+    border-radius:12px;
+    font-weight:600;
+    text-decoration:none;
+    color:#333;
+    transition:transform .2s, box-shadow .2s;
+    margin-top:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .btn-back:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  main{
+    width:100%;
+    max-width:900px;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+
+  main h2{
+    font-size:1.3rem;
+    color:#4caf50;
+    margin-bottom:8px;
+  }
+
+  .faq-content ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .faq-content ul li{
+    background:#fff;
+    padding:12px 16px;
+    border-radius:16px;
+    border:1px solid #eee;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    transition:transform .3s,box-shadow .3s;
+  }
+
+  .faq-content ul li:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  pre{
+    background:#fff;
+    padding:16px;
+    border-radius:18px;
+    border:1px solid #eee;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    overflow-x:auto;
+    font-family:"Poppins",sans-serif;
+    white-space:pre-wrap;
+    transition:transform .3s, box-shadow .3s;
+  }
+
+  pre:hover{
+    transform:translateY(-3px) scale(1.01);
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+  }
+
+  footer{
+    color:#888;
+    font-size:0.85rem;
+    margin-top:20px;
+    width:100%;
+    text-align:center;
+  }
+
+  /* Fade-in animation */
+  .fade-in{
+    opacity:0;
+    animation: fadeIn 1s ease forwards;
+  }
+  @keyframes fadeIn{
+    0%{opacity:0; transform:translateY(10px);}
+    100%{opacity:1; transform:translateY(0);}
+  }
+
+  /* Skeleton shimmer for pre and list */
+  .skeleton{
+    height:12px;
+    width:80%;
+    background: linear-gradient(90deg,#e0e0e0,#f5f5f5,#e0e0e0);
+    border-radius:6px;
+    opacity:.9;
+    background-size:200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer{
+    0%{background-position:-200% 0;}
+    100%{background-position:200% 0;}
+  }
+
+  /* Parallax effect for pre and list items */
+  [data-parallax]{
+    transition:transform 0.3s ease-out;
+  }
+
+  @media (max-width:480px){
+    body{padding:24px 12px;}
+    header h1{font-size:1.6rem;}
+    main h2{font-size:1.1rem;}
+  }
+</style>
 </head>
 <body>
-  <header class="fade-in">
-    <h1>💬 FAQ & Codes</h1>
-    <p>Kumpulan kode, damage, dan fusion plants!</p>
-    <a href="index.html" class="btn-back">⬅ Kembali</a>
-  </header>
 
-  <main class="fade-in faq-content">
-    <h2>:happy: CODES :happy:</h2>
+<header class="fade-in">
+  <h1>💬 FAQ & Codes</h1>
+  <p>Kumpulan kode, damage, dan fusion plants!</p>
+  <a href="index.html" class="btn-back">⬅ Kembali</a>
+</header>
+
+<main class="fade-in faq-content">
+  <section data-parallax>
+    <h2> CODES </h2>
     <ul>
       <li>➡ STACKS - 1 Lucky Potion 🌟</li>
       <li>➡ based - 5k Money 💰</li>
       <li>➡ frozen - 1 Frost Grenade ❄️</li>
     </ul>
+  </section>
 
+  <section data-parallax>
     <h2>AVERAGE PLANT DAMAGE</h2>
     <pre>
 🌵 Cactus — 10
@@ -39,7 +192,9 @@
 🥭 Mango — 7.65k
 🍋 King Limone — 12.5k │1.5s cd
     </pre>
+  </section>
 
+  <section data-parallax>
     <h2>SPECIAL / LIMITED PLANTS</h2>
     <pre>
 Don Fragola → 25  
@@ -47,7 +202,9 @@ Sunzio → 115
 Aubie → 500  
 Copuccino → 1500 │0.5s cd (range hanya 1 tile)
     </pre>
+  </section>
 
+  <section data-parallax>
     <h2>PLANTS + BRAINROT FUSIONS</h2>
     <pre>
 ⭐ Noobini Bananani + Cactus → Noobini Cactusini  
@@ -62,10 +219,25 @@ Copuccino → 1500 │0.5s cd (range hanya 1 tile)
 ⭐ Los Tralalitos + Mr Carrot → Los Mr Carrotitos  
 ⭐ Meowzio Sushini + King Limone → Lemowzio
     </pre>
-  </main>
+  </section>
+</main>
 
-  <footer>
-    <p>© 2025 Plants vs Brainrots Modern Edition</p>
-  </footer>
+<footer>
+  <p>© 2025 Plants vs Brainrots Modern Edition</p>
+</footer>
+
+<script>
+  // Parallax scroll effect
+  function parallaxScroll(){
+    document.querySelectorAll('[data-parallax]').forEach(section=>{
+      const rect = section.getBoundingClientRect();
+      const offset = rect.top - window.innerHeight/1.5;
+      section.style.transform = `translateY(${offset*0.05}px)`;
+    });
+  }
+  window.addEventListener('scroll', parallaxScroll);
+  window.addEventListener('load', parallaxScroll);
+</script>
+
 </body>
 </html>
