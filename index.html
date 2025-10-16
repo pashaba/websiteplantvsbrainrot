@@ -1,78 +1,257 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <!-- CMP & Ezoic -->
   <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-<script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
- <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-<script>
+  <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script>
     window.ezstandalone = window.ezstandalone || {};
     ezstandalone.cmd = ezstandalone.cmd || [];
-</script>
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Plants vs Brainrots - Info, Codes, and More!">
   <title>Plants vs Brainrots | Modern Edition</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
+
   <!-- Google AdSense -->
   <meta name="google-adsense-account" content="ca-pub-1771884647147524">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524" crossorigin="anonymous"></script>
+
+  <!-- AMP Auto Ads -->
+  <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+
+  <!-- Style -->
+  <style>
+    /* 🌑 Global */
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at top, #0a0f0a, #000);
+      color: #e7ffe7;
+      overflow-x: hidden;
+    }
+
+    /* 🌿 Header */
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+    header h1 {
+      font-size: 2.6rem;
+      color: #8eff8e;
+      text-shadow: 0 0 10px #00ff88, 0 0 30px #00ff88;
+    }
+    header p {
+      color: #aaa;
+      margin-top: 6px;
+      font-size: 1rem;
+    }
+
+    /* ✨ Intro Section */
+    main {
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+    section.intro h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #00ff99;
+    }
+    section.intro p {
+      max-width: 500px;
+      margin: 0 auto 20px;
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* 🌐 Buttons */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .buttons a {
+      background: #00ff99;
+      color: #0a0a0a;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 10px #00ff88;
+    }
+    .buttons a:hover {
+      transform: translateY(-3px);
+      background: #33ffb3;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    /* 📡 Status Bot */
+    .bot-status {
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
+    .status-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #ff4444;
+      box-shadow: 0 0 10px #ff4444;
+      animation: pulse 2s infinite;
+    }
+    .status-text {
+      color: #ddd;
+    }
+    .active {
+      background: #00ff88 !important;
+      box-shadow: 0 0 15px #00ff88 !important;
+    }
+
+    /* 🪴 Info Section */
+    section.info {
+      margin: 60px auto;
+      max-width: 700px;
+      padding: 20px;
+      line-height: 1.6;
+      background: rgba(0, 50, 0, 0.2);
+      border: 1px solid rgba(0, 255, 150, 0.3);
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(0,255,150,0.15);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    section.info h2 {
+      color: #00ff99;
+      margin-bottom: 10px;
+      font-size: 1.7rem;
+    }
+    section.info p {
+      color: #bbb;
+      font-size: 1rem;
+    }
+
+    /* 📢 Ads Section */
+    .ads-section {
+      margin: 50px auto;
+      text-align: center;
+    }
+    .ads-section h3 {
+      color: #00ff99;
+      margin-bottom: 10px;
+    }
+
+    /* 🦶 Footer */
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 40px 10px;
+      font-size: 0.9rem;
+    }
+
+    /* 🌈 Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
 </head>
 <body>
-  <header class="fade-in">
+  <header>
     <h1>🌿 Plants vs Brainrots</h1>
     <p>By Pasha.</p>
   </header>
 
   <main>
-    <section class="intro fade-in">
+    <section class="intro">
       <h2>Selamat Datang!</h2>
       <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif.</p>
       <div class="buttons">
-        <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank" class="btn-whatsapp">💬 Saluran WhatsApp</a>
-        <a href="faq.html" class="btn-faq">📘 Lihat FAQ & Codes</a>
-         <a href="stock.html" class="btn-faq">🍍 Lihat Stock Live</a>
-         <a href="report.html" class="btn-faq">📤 aduan Bot Error</a>
+        <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank">💬 Saluran WhatsApp</a>
+        <a href="faq.html">📘 Lihat FAQ & Codes</a>
+        <a href="stock.html">🍍 Lihat Stock Live</a>
+        <a href="report.html">📤 Aduan Bot Error</a>
       </div>
     </section>
 
-    <section class="ads-section fade-in">
-  
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524"
-     crossorigin="anonymous"></script>
-<!-- 1 -->
+    <!-- 📡 Bot Status -->
+    <div class="bot-status">
+      <div class="status-dot" id="botDot"></div>
+      <span class="status-text" id="botText">Mengecek status bot...</span>
+    </div>
+
+    <!-- 📢 Ads -->
+    <section class="ads-section">
       <h3>Sponsored</h3>
-        <ins class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-1771884647147524"
-          data-ad-slot="1234567890"
-          data-ad-format="auto"
-          data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-1771884647147524"
+        data-ad-slot="1234567890"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1771884647147524"
-     data-ad-slot="9862066892"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script
-  </section>
-    <section class="info fade-in">
+    </section>
+
+    <!-- 🪴 Info -->
+    <section class="info">
       <h2>Tentang Game</h2>
       <p>Plants vs Brainrots adalah dunia unik penuh tanaman lucu dan makhluk aneh. Nikmati kombinasi strategi dan humor dalam gaya yang elegan dan modern.</p>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Plants vs Brainrots ©Pasha</p>
+    <p>© 2025 Plants vs Brainrots • Crafted by Pasha 🌱</p>
   </footer>
+
+  <amp-auto-ads type="adsense" data-ad-client="ca-pub-1771884647147524"></amp-auto-ads>
+
+  <!-- 🔄 Script Status Bot -->
+  <script>
+    async function cekStatusBot() {
+      const dot = document.getElementById("botDot");
+      const text = document.getElementById("botText");
+
+      try {
+        // Ganti URL di bawah kalau kamu punya endpoint status bot sendiri
+        const res = await fetch("https://panelcloud.xyz/api/status");
+        const data = await res.json();
+
+        if (data?.status === "online" || data?.active) {
+          dot.classList.add("active");
+          text.textContent = "Bot sedang aktif ✅";
+        } else {
+          dot.classList.remove("active");
+          text.textContent = "Bot sedang offline ❌";
+        }
+      } catch {
+        dot.classList.remove("active");
+        text.textContent = "Bot tidak merespons ⚠️";
+      }
+    }
+
+    cekStatusBot();
+    setInterval(cekStatusBot, 30000); // refresh setiap 30 detik
+  </script>
 </body>
-  <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-1771884647147524">
-</amp-auto-ads
 </html>
