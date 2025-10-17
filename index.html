@@ -92,6 +92,16 @@ nav ul li a:hover {
   color: var(--primary);
 }
 
+/* Tombol close navbar */
+.close-btn {
+  position: absolute;
+  top: 18px;
+  right: 25px;
+  font-size: 1.8rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
 /* === HERO SECTION === */
 .hero {
   margin-top: 90px;
@@ -157,7 +167,28 @@ nav ul li a:hover {
   50% { transform: translateY(-10px); }
 }
 
-/* === INTRO SECTION === */
+/* === ADSENSE AREA === */
+.adsense {
+  width: 100%;
+  max-width: 728px;
+  height: 90px;
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  color: #666;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.adsense span {
+  opacity: 0.8;
+}
+
+/* === MAIN CONTENT === */
 main {
   max-width: 1000px;
   margin: auto;
@@ -235,6 +266,7 @@ footer {
     <div class="logo">🌿 PVB</div>
     <button id="menuBtn">☰</button>
     <ul id="navMenu">
+      <span class="close-btn" id="closeBtn">✖</span>
       <li><a href="index.html">🏠 Beranda</a></li>
       <li><a href="faq.html">📘 FAQ & Codes</a></li>
       <li><a href="stock.html">🍍 Stock Live</a></li>
@@ -254,6 +286,11 @@ footer {
     </div>
     <img src="https://cdn-icons-png.flaticon.com/512/7666/7666679.png" alt="Plants illustration">
   </section>
+
+  <!-- === ADSENSE TEMPAT === -->
+  <div class="adsense">
+    <span>🪙 Tempat Iklan Adsense (728x90) — Tambahkan script di sini</span>
+  </div>
 
   <main>
     <section class="intro">
@@ -283,9 +320,15 @@ footer {
 
 <script>
   const btn = document.getElementById("menuBtn");
+  const closeBtn = document.getElementById("closeBtn");
   const menu = document.getElementById("navMenu");
+
   btn.addEventListener("click", () => {
-    menu.classList.toggle("show");
+    menu.classList.add("show");
+  });
+
+  closeBtn.addEventListener("click", () => {
+    menu.classList.remove("show");
   });
 </script>
 </body>
