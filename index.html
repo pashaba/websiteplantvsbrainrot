@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plants vs Brainrots | Pasha</title>
-<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, dan Aduan Error Bot.">
+<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, Aduan Bot, dan Chat.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524"
      crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
     overflow-x: hidden;
   }
 
-  /* === LOADING SCREEN === */
+  /* === LOADER === */
   #loader {
     position: fixed;
     inset: 0;
@@ -50,7 +50,7 @@
     border-top: 6px solid var(--primary);
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   #loader.fade-out {
@@ -59,14 +59,12 @@
   }
 
   @keyframes spin {
-    from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
   #loader p {
     font-weight: 500;
     color: #333;
-    letter-spacing: 0.5px;
     font-size: 1rem;
     animation: fadeText 2s ease-in-out infinite alternate;
   }
@@ -76,32 +74,72 @@
     to { opacity: 1; }
   }
 
-  /* === HEADER === */
-  header {
+  /* === NAVBAR === */
+  nav {
     background: var(--light);
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: fadeIn 1s ease;
+  }
+
+  nav h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+
+  .nav-links a:hover {
+    color: var(--primary);
+    background: rgba(75,110,245,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* === HEADER === */
+  header {
     text-align: center;
-    padding: 60px 20px 80px;
-    border-radius: 0 0 50px 50px;
+    padding: 80px 20px 100px;
     position: relative;
     animation: fadeIn 1.2s ease forwards;
   }
 
-  header h1 {
+  header h2 {
     font-size: 2.6rem;
     letter-spacing: 1px;
     font-weight: 700;
+    color: var(--dark);
   }
 
   header p {
     color: #555;
     margin-top: 10px;
+    font-size: 1.1em;
   }
 
   .bot-status {
     position: absolute;
-    top: 15px;
-    right: 25px;
+    top: 20px;
+    right: 40px;
     background: #eafbea;
     color: #2a7c2a;
     border-radius: 30px;
@@ -123,8 +161,8 @@
   main {
     max-width: 950px;
     margin: auto;
-    padding: 60px 20px;
-    animation: fadeIn 1.5s ease forwards;
+    padding: 40px 20px;
+    animation: fadeIn 1.3s ease forwards;
   }
 
   section {
@@ -132,10 +170,10 @@
     text-align: center;
   }
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 12px;
+  h3 {
+    font-size: 1.6rem;
     color: var(--dark);
+    margin-bottom: 15px;
   }
 
   p {
@@ -143,35 +181,6 @@
     line-height: 1.7;
     max-width: 720px;
     margin: auto;
-  }
-
-  /* === BUTTONS === */
-  .buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin-top: 30px;
-  }
-
-  .buttons a {
-    background: var(--primary);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: 500;
-    box-shadow: 0 6px 12px rgba(75,110,245,0.25);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    min-width: 180px;
-  }
-
-  .buttons a:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(75,110,245,0.3);
   }
 
   /* === ADS === */
@@ -182,6 +191,7 @@
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
   }
 
+  /* === FOOTER === */
   footer {
     text-align: center;
     background: #fff;
@@ -189,12 +199,25 @@
     color: #666;
     font-size: 0.95em;
     border-top: 3px solid var(--primary);
-    animation: fadeIn 1s ease forwards;
+    animation: fadeIn 1.4s ease forwards;
   }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .bot-status {
+      right: 20px;
+      top: 10px;
+    }
   }
 </style>
 </head>
@@ -206,24 +229,32 @@
     <p>Memuat halaman...</p>
   </div>
 
+  <!-- Navbar -->
+  <nav>
+    <h1>🌿 PVB</h1>
+    <div class="nav-links">
+      <a href="index.html">🏠 Beranda</a>
+      <a href="faq.html">📘 FAQ & Codes</a>
+      <a href="stock.html">🍍 Stock Live</a>
+      <a href="report.html">📤 Aduan Bot</a>
+      <a href="produk.html">🛒 Sewa Bot</a>
+      <a href="data.html">🔎 Owner</a>
+      <a href="cbox.html">💬 Chat</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
   <header>
     <div class="bot-status">🟢 Bot Status: Aktif</div>
-    <h1>🌿 Plants vs Brainrots</h1>
+    <h2>Plants vs Brainrots</h2>
     <p>By Pasha</p>
   </header>
 
+  <!-- Main Content -->
   <main>
     <section class="intro">
-      <h2>Selamat Datang!</h2>
+      <h3>Selamat Datang!</h3>
       <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif.</p>
-      <div class="buttons">
-        <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank">💬 Saluran WhatsApp</a>
-        <a href="faq.html">📘 Lihat FAQ & Codes</a>
-        <a href="stock.html">🍍 Lihat Stock Live</a>
-        <a href="report.html">📤 Aduan Bot Error</a>
-        <a href="produk.html">🛒 Sewa Bot</a>
-        <a href="data.html">🔎 Owner Information</a>
-      </div>
     </section>
 
     <section class="ads-section">
@@ -238,7 +269,7 @@
     </section>
 
     <section class="info">
-      <h2>Tentang Game</h2>
+      <h3>Tentang Game</h3>
       <p>
         Plants Vs Brainrots adalah pengalaman Roblox unik yang menggabungkan elemen Tower Defence
         dan Grow a Garden, di mana tanamanmu bertarung melawan Brainrots yang menyerang tamanmu!
@@ -251,7 +282,7 @@
   </footer>
 
   <script>
-    // Animasi loading saat halaman masuk
+    // Loading animasi masuk halaman
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       setTimeout(() => loader.classList.add("fade-out"), 800);
