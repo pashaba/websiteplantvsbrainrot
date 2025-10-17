@@ -1,225 +1,279 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Plants vs Brainrots | Pasha</title>
-<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, dan Aduan Error Bot.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524"
-     crossorigin="anonymous"></script>
 <style>
-  :root {
-    --primary: #4b6ef5;
-    --bg: #f9fafc;
-    --dark: #1a1a1a;
-    --light: #ffffff;
-  }
+:root {
+  --primary: #4b6ef5;
+  --secondary: #6f8df7;
+  --light: #ffffff;
+  --bg: #f8fafc;
+  --dark: #1a1a1a;
+}
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    scroll-behavior: smooth;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
 
-  body {
-    background: var(--bg);
-    color: var(--dark);
-    overflow-x: hidden;
-  }
+body {
+  background: var(--bg);
+  color: var(--dark);
+  overflow-x: hidden;
+}
 
-  /* === LOADER === */
-  #loader {
-    position: fixed;
-    inset: 0;
-    background: var(--light);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
-  }
+/* === NAVBAR === */
+nav {
+  width: 100%;
+  background: var(--light);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 14px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .spinner {
-    width: 65px;
-    height: 65px;
-    border: 6px solid #ddd;
-    border-top: 6px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 1.2s linear infinite;
-    margin-bottom: 20px;
-  }
+nav .logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
 
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  #loader.fade-out { opacity: 0; visibility: hidden; }
-  #loader p { font-weight: 500; color: #333; animation: fadeText 2s ease-in-out infinite alternate; }
-  @keyframes fadeText { from { opacity: 0.5; } to { opacity: 1; } }
+nav button {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+}
 
-  /* === HEADER === */
-  header {
-    background: var(--light);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    text-align: center;
-    padding: 60px 20px 80px;
-    border-radius: 0 0 50px 50px;
-    position: relative;
-  }
+nav ul {
+  list-style: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100%;
+  background: var(--light);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+  padding-top: 80px;
+  transition: right 0.4s ease;
+}
 
-  header h1 {
-    font-size: 2.6rem;
-    letter-spacing: 1px;
-    font-weight: 700;
-  }
+nav ul.show {
+  right: 0;
+}
 
-  header p { color: #555; margin-top: 10px; }
+nav ul li {
+  text-align: center;
+  margin: 25px 0;
+}
 
-  .bot-status {
-    position: absolute;
-    top: 15px;
-    right: 60px;
-    background: #eafbea;
-    color: #2a7c2a;
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-weight: 600;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    animation: pulse 2s infinite;
-  }
+nav ul li a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
 
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
-  }
+nav ul li a:hover {
+  color: var(--primary);
+}
 
-  /* === NAVBAR BUTTON === */
-  .menu-btn {
-    position: absolute;
-    top: 15px;
-    left: 25px;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--dark);
-    z-index: 1001;
-  }
+/* === HERO SECTION === */
+.hero {
+  margin-top: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 80px 20px;
+  text-align: center;
+  background: radial-gradient(circle at top left, #eef2ff, #fff);
+  animation: fadeIn 1.2s ease;
+}
 
-  /* === SIDEBAR === */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 250px;
-    height: 100vh;
-    background: var(--light);
-    box-shadow: 4px 0 12px rgba(0,0,0,0.1);
-    padding: 80px 25px;
-    transition: 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 1000;
-  }
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
 
-  .sidebar.active { left: 0; }
+.hero p {
+  max-width: 650px;
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
 
-  .sidebar a {
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 10px;
-    border-radius: 8px;
-    transition: 0.3s;
-  }
+.hero .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
 
-  .sidebar a:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateX(5px);
-  }
+.hero .actions a {
+  background: var(--primary);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 6px 12px rgba(75,110,245,0.25);
+  transition: all 0.3s ease;
+}
 
-  main {
-    max-width: 950px;
-    margin: auto;
-    padding: 60px 20px;
-  }
+.hero .actions a:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(75,110,245,0.3);
+}
 
-  section { margin-bottom: 60px; text-align: center; }
-  h2 { font-size: 2rem; margin-bottom: 12px; color: var(--dark); }
-  p { color: #555; line-height: 1.7; max-width: 720px; margin: auto; }
+/* === HERO ILLUSTRATION === */
+.hero img {
+  margin-top: 40px;
+  width: 260px;
+  animation: float 4s ease-in-out infinite;
+}
 
-  .ads-section {
-    background: var(--light);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
-  footer {
-    text-align: center;
-    background: #fff;
-    padding: 25px;
-    color: #666;
-    font-size: 0.95em;
-    border-top: 3px solid var(--primary);
-  }
+/* === INTRO SECTION === */
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px 20px;
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.intro h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  color: #555;
+  max-width: 720px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* === FEATURES === */
+.features {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: var(--light);
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  padding: 30px 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  background: var(--light);
+  padding: 25px;
+  color: #666;
+  font-size: 0.95em;
+  border-top: 3px solid var(--primary);
+  animation: fadeIn 1s ease forwards;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
+
 <body>
-  <!-- LOADER -->
-  <div id="loader">
-    <div class="spinner"></div>
-    <p>Memuat halaman...</p>
-  </div>
+  <nav>
+    <div class="logo">🌿 PVB</div>
+    <button id="menuBtn">☰</button>
+    <ul id="navMenu">
+      <li><a href="index.html">🏠 Beranda</a></li>
+      <li><a href="faq.html">📘 FAQ & Codes</a></li>
+      <li><a href="stock.html">🍍 Stock Live</a></li>
+      <li><a href="report.html">📤 Aduan Bot</a></li>
+      <li><a href="produk.html">🛒 Sewa Bot</a></li>
+      <li><a href="data.html">🔎 Owner Info</a></li>
+      <li><a href="cbox.html">💬 Chat</a></li>
+    </ul>
+  </nav>
 
-  <!-- SIDEBAR MENU -->
-  <div class="sidebar" id="sidebar">
-    <a href="index.html">🏠 Beranda</a>
-    <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank">💬 Saluran WhatsApp</a>
-    <a href="faq.html">📘 FAQ & Codes</a>
-    <a href="stock.html">🍍 Stock Live</a>
-    <a href="report.html">📤 Aduan Bot Error</a>
-    <a href="produk.html">🛒 Sewa Bot</a>
-    <a href="data.html">🔎 Owner Info</a>
-    <a href="cbox.html">💬 Chat Box</a>
-  </div>
-
-  <header>
-    <button class="menu-btn" id="menu-btn">☰</button>
-    <div class="bot-status">🟢 Bot Status: Aktif</div>
-    <h1>🌿 Plants vs Brainrots</h1>
-    <p>By Pasha</p>
-  </header>
+  <section class="hero">
+    <h1>Plants vs Brainrots</h1>
+    <p>Temukan dunia unik tempat tanaman berperang melawan Brainrots dengan strategi, kreativitas, dan komunitas aktif.</p>
+    <div class="actions">
+      <a href="#features">🌱 Jelajahi</a>
+      <a href="faq.html">📘 Lihat Codes</a>
+    </div>
+    <img src="https://cdn-icons-png.flaticon.com/512/7666/7666679.png" alt="Plants illustration">
+  </section>
 
   <main>
     <section class="intro">
       <h2>Selamat Datang!</h2>
-      <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif.</p>
+      <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif di satu tempat dengan tampilan modern dan bersih.</p>
     </section>
 
-    <section class="ads-section">
-      <h3>Sponsored</h3>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-1771884647147524"
-           data-ad-slot="9862066892"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </section>
-
-    <section class="info">
-      <h2>Tentang Game</h2>
-      <p>Plants Vs Brainrots adalah pengalaman Roblox unik yang menggabungkan elemen Tower Defence
-      dan Grow a Garden, di mana tanamanmu bertarung melawan Brainrots yang menyerang tamanmu!</p>
+    <section class="features" id="features">
+      <div class="card">
+        <h3>🌱 Update Rutin</h3>
+        <p>Setiap minggu hadir pembaruan tanaman dan fitur baru.</p>
+      </div>
+      <div class="card">
+        <h3>🧠 Strategi Seru</h3>
+        <p>Gabungkan tanaman dan hadapi gelombang Brainrots yang unik.</p>
+      </div>
+      <div class="card">
+        <h3>💬 Komunitas Aktif</h3>
+        <p>Bergabunglah dengan pemain lain lewat saluran WhatsApp kami.</p>
+      </div>
     </section>
   </main>
 
@@ -227,19 +281,12 @@
     <p>© 2025 Plants vs Brainrots — Pasha</p>
   </footer>
 
-  <script>
-    // Loader animasi
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      setTimeout(() => loader.classList.add("fade-out"), 800);
-    });
-
-    // Sidebar toggle
-    const menuBtn = document.getElementById("menu-btn");
-    const sidebar = document.getElementById("sidebar");
-    menuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-    });
-  </script>
+<script>
+  const btn = document.getElementById("menuBtn");
+  const menu = document.getElementById("navMenu");
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("show");
+  });
+</script>
 </body>
 </html>
