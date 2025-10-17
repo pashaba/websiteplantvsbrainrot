@@ -3,112 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PVB Chatbox</title>
+<title>PVB Chat</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+  /* 🌸 Gaya dasar */
   body {
     margin: 0;
-    font-family: "Inter", sans-serif;
-    background: #f7f7f8;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background: #fafafa;
+    font-family: "Poppins", sans-serif;
     overflow: hidden;
   }
 
-  /* Animasi latar */
-  .bg-anim {
+  /* ✨ Efek cahaya lembut di background */
+  .bg-aura {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 30%, #e3e3e3, transparent 60%),
-                radial-gradient(circle at 80% 70%, #d9d9d9, transparent 60%);
-    animation: moveBg 10s ease-in-out infinite alternate;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 190, 190, 0.3), transparent 70%),
+                radial-gradient(circle at 70% 70%, rgba(170, 210, 255, 0.25), transparent 70%);
+    animation: moveAura 10s ease-in-out infinite alternate;
     z-index: 0;
   }
 
-  @keyframes moveBg {
-    from { transform: translateY(0px) scale(1); }
-    to { transform: translateY(-20px) scale(1.05); }
+  @keyframes moveAura {
+    from { transform: translate(-5%, -5%) scale(1); }
+    to { transform: translate(5%, 5%) scale(1.05); }
   }
 
-  .chatbox-container {
+  /* 💬 Kotak chat */
+  .chatbox {
     position: relative;
     z-index: 1;
     background: #ffffff;
-    border-radius: 18px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    padding: 25px;
-    width: 95%;
-    max-width: 430px;
-    animation: fadeIn 1s ease;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    padding: 30px 25px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    animation: fadeInUp 1.2s ease;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .chatbox-header {
+  /* 🩶 Judul dan logo */
+  .chatbox-title {
     font-size: 1.6em;
     font-weight: 600;
     color: #111;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+  }
+
+  .chatbox-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    animation: floatLogo 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes floatLogo {
+    from { transform: translateY(0); }
+    to { transform: translateY(-6px); }
   }
 
   .chatbox-desc {
     font-size: 0.95em;
     color: #555;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
+  /* 💬 Frame chat */
   iframe {
     width: 100%;
     height: 420px;
     border: none;
-    border-radius: 12px;
-    background: #f0f0f0;
+    border-radius: 15px;
+    background: #f5f5f5;
+    transition: all 0.3s ease;
   }
 
+  iframe:hover {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Footer */
   .footer {
-    margin-top: 18px;
-    font-size: 0.85em;
-    color: #777;
+    margin-top: 15px;
+    font-size: 0.8em;
+    color: #888;
   }
 
   .footer a {
-    color: #007bff;
+    color: #111;
     text-decoration: none;
-    transition: color 0.2s ease;
+    font-weight: 500;
   }
 
   .footer a:hover {
-    color: #0056b3;
+    text-decoration: underline;
   }
 
-  /* Responsif */
+  /* 📱 Responsif */
   @media (max-width: 600px) {
-    .chatbox-container {
-      padding: 20px;
-      max-width: 95%;
+    .chatbox {
+      padding: 25px 20px;
+      border-radius: 20px;
     }
+
+    .chatbox-logo {
+      width: 50px;
+      height: 50px;
+    }
+
     iframe {
-      height: 380px;
+      height: 360px;
     }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-anim"></div>
+<div class="bg-aura"></div>
 
-<div class="chatbox-container">
-  <div class="chatbox-header">💬 Chat PVB</div>
-  <div class="chatbox-desc">Butuh bantuan atau ingin ngobrol dengan tim PVB? Chat langsung di bawah ini 👇</div>
+<div class="chatbox">
+  <div class="chatbox-title">💬 Chat PVB</div>
+  <img src="https://i.ibb.co/6wSRnHD/pvb-logo.png" alt="PVB Logo" class="chatbox-logo">
+  <div class="chatbox-desc">Halo! Selamat datang di PVB 💎  
+  Silakan ngobrol langsung lewat chat di bawah 👇</div>
 
-  <!-- CBOX EMBED -->
+  <!-- CBOX -->
   <div id="cbox-container"></div>
   <script>
     window['CboxReady'] = function (Cbox) {
@@ -118,7 +152,7 @@
   <script src="https://static.cbox.ws/embed/2.js" async></script>
 
   <div class="footer">
-    © 2025 <strong>PVB</strong> | Powered by <a href="https://www.cbox.ws/" target="_blank">Cbox</a>
+    © 2025 <strong>PVB</strong> — Powered by <a href="https://www.cbox.ws/" target="_blank">Cbox</a>
   </div>
 </div>
 
