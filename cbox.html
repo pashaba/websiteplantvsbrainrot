@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,75 +6,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PVB Chat</title>
 <style>
-  body {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-    background-color: #f8f9fa;
-    color: #222;
+  }
+
+  body {
+    background: radial-gradient(circle at top, #0f0f0f, #1b1b1b);
+    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
-    padding: 40px 15px;
+    padding: 50px 15px;
+    overflow-x: hidden;
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     font-weight: 600;
-    margin-bottom: 20px;
-    color: #111;
-    letter-spacing: -0.5px;
-    animation: fadeDown 0.8s ease-out;
+    margin-bottom: 25px;
+    background: linear-gradient(90deg, #4caf50, #81c784);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    animation: fadeDown 1s ease-out;
   }
 
   .chatbox-container {
     width: 100%;
-    max-width: 700px;
-    background: #fff;
+    max-width: 750px;
+    background: #121212;
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.15);
     overflow: hidden;
-    animation: popIn 0.9s ease-out;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeUp 1s ease;
+    transition: all 0.3s ease;
   }
 
   .chatbox-container:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.25);
+    transform: translateY(-3px);
   }
 
   iframe {
     width: 100%;
-    height: 450px;
+    height: 480px;
     border: none;
-    border-radius: 0 0 20px 20px;
-  }
-
-  @keyframes popIn {
-    0% { transform: scale(0.95); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  @keyframes fadeDown {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
+    background: #0f0f0f;
   }
 
   footer {
     margin-top: 30px;
     font-size: 0.9rem;
-    color: #777;
+    color: #aaa;
     text-align: center;
-    animation: fadeDown 1s ease;
+    animation: fadeUp 1.3s ease;
   }
 
   footer span {
-    color: #007aff;
+    color: #4caf50;
     font-weight: 600;
   }
+
+  /* ✨ Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 💫 Floating Glow */
+  .glow {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(76,175,80,0.2), transparent 70%);
+    filter: blur(40px);
+    border-radius: 50%;
+    animation: floatGlow 6s ease-in-out infinite alternate;
+  }
+
+  .glow:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+  .glow:nth-child(2) { bottom: 15%; right: 10%; animation-delay: 2s; }
+
+  @keyframes floatGlow {
+    0% { transform: translateY(0px) scale(1); opacity: 0.6; }
+    100% { transform: translateY(20px) scale(1.1); opacity: 1; }
+  }
+
 </style>
 </head>
 <body>
+
+  <!-- Glowing orbs -->
+  <div class="glow"></div>
+  <div class="glow"></div>
 
   <h1>💬 PVB Chat</h1>
 
@@ -85,7 +119,7 @@
       scrolling="auto"></iframe>
   </div>
 
-  <footer>© 2025 <span>PVB</span>. All rights reserved.</footer>
+  <footer>© 2025 <span>Plants vs Brainrot</span>. All rights reserved.</footer>
 
 </body>
 </html>
