@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plants vs Brainrots | Pasha</title>
-<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, Aduan Bot, dan Chat.">
+<meta name="description" content="Plants vs Brainrots website by Pasha — Info, Stock Live, FAQ, dan Aduan Error Bot.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1771884647147524"
      crossorigin="anonymous"></script>
@@ -50,96 +50,36 @@
     border-top: 6px solid var(--primary);
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
-  #loader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  #loader p {
-    font-weight: 500;
-    color: #333;
-    font-size: 1rem;
-    animation: fadeText 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes fadeText {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-  }
-
-  /* === NAVBAR === */
-  nav {
-    background: var(--light);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    animation: fadeIn 1s ease;
-  }
-
-  nav h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 500;
-    transition: color 0.3s, transform 0.3s;
-    padding: 8px 12px;
-    border-radius: 8px;
-  }
-
-  .nav-links a:hover {
-    color: var(--primary);
-    background: rgba(75,110,245,0.08);
-    transform: translateY(-2px);
-  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  #loader.fade-out { opacity: 0; visibility: hidden; }
+  #loader p { font-weight: 500; color: #333; animation: fadeText 2s ease-in-out infinite alternate; }
+  @keyframes fadeText { from { opacity: 0.5; } to { opacity: 1; } }
 
   /* === HEADER === */
   header {
+    background: var(--light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     text-align: center;
-    padding: 80px 20px 100px;
+    padding: 60px 20px 80px;
+    border-radius: 0 0 50px 50px;
     position: relative;
-    animation: fadeIn 1.2s ease forwards;
   }
 
-  header h2 {
+  header h1 {
     font-size: 2.6rem;
     letter-spacing: 1px;
     font-weight: 700;
-    color: var(--dark);
   }
 
-  header p {
-    color: #555;
-    margin-top: 10px;
-    font-size: 1.1em;
-  }
+  header p { color: #555; margin-top: 10px; }
 
   .bot-status {
     position: absolute;
-    top: 20px;
-    right: 40px;
+    top: 15px;
+    right: 60px;
     background: #eafbea;
     color: #2a7c2a;
     border-radius: 30px;
@@ -158,32 +98,64 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
+  /* === NAVBAR BUTTON === */
+  .menu-btn {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--dark);
+    z-index: 1001;
+  }
+
+  /* === SIDEBAR === */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 250px;
+    height: 100vh;
+    background: var(--light);
+    box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+    padding: 80px 25px;
+    transition: 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+  }
+
+  .sidebar.active { left: 0; }
+
+  .sidebar a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .sidebar a:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateX(5px);
+  }
+
   main {
     max-width: 950px;
     margin: auto;
-    padding: 40px 20px;
-    animation: fadeIn 1.3s ease forwards;
+    padding: 60px 20px;
   }
 
-  section {
-    margin-bottom: 60px;
-    text-align: center;
-  }
+  section { margin-bottom: 60px; text-align: center; }
+  h2 { font-size: 2rem; margin-bottom: 12px; color: var(--dark); }
+  p { color: #555; line-height: 1.7; max-width: 720px; margin: auto; }
 
-  h3 {
-    font-size: 1.6rem;
-    color: var(--dark);
-    margin-bottom: 15px;
-  }
-
-  p {
-    color: #555;
-    line-height: 1.7;
-    max-width: 720px;
-    margin: auto;
-  }
-
-  /* === ADS === */
   .ads-section {
     background: var(--light);
     padding: 25px;
@@ -191,7 +163,6 @@
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
   }
 
-  /* === FOOTER === */
   footer {
     text-align: center;
     background: #fff;
@@ -199,61 +170,38 @@
     color: #666;
     font-size: 0.95em;
     border-top: 3px solid var(--primary);
-    animation: fadeIn 1.4s ease forwards;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Responsive Navbar */
-  @media (max-width: 768px) {
-    .nav-links {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .bot-status {
-      right: 20px;
-      top: 10px;
-    }
   }
 </style>
 </head>
-
 <body>
-  <!-- Loading Screen -->
+  <!-- LOADER -->
   <div id="loader">
     <div class="spinner"></div>
     <p>Memuat halaman...</p>
   </div>
 
-  <!-- Navbar -->
-  <nav>
-    <h1>🌿 PVB</h1>
-    <div class="nav-links">
-      <a href="index.html">🏠 Beranda</a>
-      <a href="faq.html">📘 FAQ & Codes</a>
-      <a href="stock.html">🍍 Stock Live</a>
-      <a href="report.html">📤 Aduan Bot</a>
-      <a href="produk.html">🛒 Sewa Bot</a>
-      <a href="data.html">🔎 Owner</a>
-      <a href="cbox.html">💬 Chat</a>
-    </div>
-  </nav>
+  <!-- SIDEBAR MENU -->
+  <div class="sidebar" id="sidebar">
+    <a href="index.html">🏠 Beranda</a>
+    <a href="https://whatsapp.com/channel/0029VbAPTls5kg7EDAEU8r2j" target="_blank">💬 Saluran WhatsApp</a>
+    <a href="faq.html">📘 FAQ & Codes</a>
+    <a href="stock.html">🍍 Stock Live</a>
+    <a href="report.html">📤 Aduan Bot Error</a>
+    <a href="produk.html">🛒 Sewa Bot</a>
+    <a href="data.html">🔎 Owner Info</a>
+    <a href="cbox.html">💬 Chat Box</a>
+  </div>
 
-  <!-- Header -->
   <header>
+    <button class="menu-btn" id="menu-btn">☰</button>
     <div class="bot-status">🟢 Bot Status: Aktif</div>
-    <h2>Plants vs Brainrots</h2>
+    <h1>🌿 Plants vs Brainrots</h1>
     <p>By Pasha</p>
   </header>
 
-  <!-- Main Content -->
   <main>
     <section class="intro">
-      <h3>Selamat Datang!</h3>
+      <h2>Selamat Datang!</h2>
       <p>Temukan berbagai informasi tentang Plants, Codes, dan Fusion eksklusif.</p>
     </section>
 
@@ -269,11 +217,9 @@
     </section>
 
     <section class="info">
-      <h3>Tentang Game</h3>
-      <p>
-        Plants Vs Brainrots adalah pengalaman Roblox unik yang menggabungkan elemen Tower Defence
-        dan Grow a Garden, di mana tanamanmu bertarung melawan Brainrots yang menyerang tamanmu!
-      </p>
+      <h2>Tentang Game</h2>
+      <p>Plants Vs Brainrots adalah pengalaman Roblox unik yang menggabungkan elemen Tower Defence
+      dan Grow a Garden, di mana tanamanmu bertarung melawan Brainrots yang menyerang tamanmu!</p>
     </section>
   </main>
 
@@ -282,24 +228,17 @@
   </footer>
 
   <script>
-    // Loading animasi masuk halaman
+    // Loader animasi
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       setTimeout(() => loader.classList.add("fade-out"), 800);
     });
 
-    // Efek loading saat klik link internal
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", (e) => {
-        if (link.getAttribute("target") === "_blank") return;
-        e.preventDefault();
-        const url = link.getAttribute("href");
-        const loader = document.getElementById("loader");
-        loader.classList.remove("fade-out");
-        loader.style.visibility = "visible";
-        loader.style.opacity = "1";
-        setTimeout(() => window.location.href = url, 500);
-      });
+    // Sidebar toggle
+    const menuBtn = document.getElementById("menu-btn");
+    const sidebar = document.getElementById("sidebar");
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
     });
   </script>
 </body>
