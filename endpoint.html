@@ -7,23 +7,27 @@
   <title>PVB API Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#fefefe;--primary:#2563eb;--accent:#0f1724;--muted:#6b7280;--card:#ffffff;--glass: rgba(15,23,42,0.03);--shadow:rgba(15,23,42,0.06);}
+    :root{--bg:#f4f6f9;--primary:#2563eb;--success:#16a34a;--warning:#facc15;--danger:#ef4444;--accent:#0f1724;--muted:#6b7280;--card:#fff;--glass: rgba(15,23,42,0.03);--shadow:rgba(15,23,42,0.06);}
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--accent)}
     body{display:flex;flex-direction:column;min-height:100vh}header{background:var(--primary);color:#fff;padding:28px 36px;border-bottom-left-radius:16px;border-bottom-right-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,0.12);text-align:center}
 header h1{margin:0;font-size:28px}
 header p{margin:6px 0 0 0;font-weight:400;color:rgba(255,255,255,0.85)}
 
-main{flex:1;padding:32px;max-width:1100px;margin:0 auto;display:grid;gap:28px}
+main{flex:1;padding:32px;max-width:1200px;margin:0 auto;display:grid;gap:32px}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
 
-.card{background:var(--card);border-radius:16px;padding:24px;box-shadow:0 12px 28px var(--shadow);display:flex;flex-direction:column;gap:14px;transition:transform .3s,box-shadow .3s}
+.card{background:var(--card);border-radius:16px;padding:24px;box-shadow:0 12px 28px var(--shadow);display:flex;flex-direction:column;gap:16px;transition:transform .3s,box-shadow .3s}
 .card:hover{transform:translateY(-10px);box-shadow:0 20px 38px var(--shadow)}
 .meta{display:flex;align-items:center;gap:16px}
 .icon{width:60px;height:60px;border-radius:12px;background:var(--glass);display:grid;place-items:center;font-size:26px}
 .title{font-weight:700;font-size:18px}
 .subtitle{font-size:14px;color:var(--muted)}
+
+.status{padding:4px 10px;border-radius:8px;font-size:12px;font-weight:600;display:inline-block}
+.active{background:var(--success);color:#fff}
+.inactive{background:var(--danger);color:#fff}
 
 .actions{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .btn{padding:12px 18px;border-radius:12px;font-weight:600;cursor:pointer;transition:all .22s}
@@ -43,7 +47,7 @@ a.endpoint{display:inline-block;text-decoration:none;color:var(--primary);font-w
 .row{display:flex;gap:12px;margin-top:12px}
 input[type="password"]{flex:1;padding:12px;border-radius:12px;border:1px solid var(--shadow);font-size:15px}
 
-.rules{padding:18px;border-radius:16px;background:#f9f9f9;border:1px solid rgba(15,23,42,0.04);box-shadow:0 6px 18px rgba(15,23,42,0.03)}
+.rules{padding:18px;border-radius:16px;background:#fff;border:1px solid rgba(15,23,42,0.04);box-shadow:0 6px 18px rgba(15,23,42,0.03)}
 .rules h3{margin-top:0;margin-bottom:10px}
 .rules ol{margin:0 0 0 18px;color:var(--muted)}
 
@@ -56,7 +60,7 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:16px 0}
 <body>
   <header>
     <h1>PVB API Dashboard</h1>
-    <p>Endpoint terkunci. Masukkan password untuk membuka.</p>
+    <p>Monitor status API Anda, endpoint terkunci. Masukkan password untuk membuka.</p>
   </header>  <main>
     <section class="grid" id="grid"></section><div class="rules">
   <h3>Aturan Penggunaan API</h3>
@@ -82,8 +86,8 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:16px 0}
     </div>
   </div>  <script>
     const ENTRIES = [
-      { id: 'pvb-v1', name: 'PVB API v1', desc: 'Endpoint versi 1', b64: 'aHR0cHM6Ly9wYW5lbGNsb3VkLnh5ei9hcGkvZGF0YQ==' },
-      { id: 'pvb-v2', name: 'PVB API v2', desc: 'Endpoint versi 2', b64: 'aHR0cHM6Ly9wYW5lbGNsb3VkLnh5ei9hcGkvZGF0YTI=' }
+      { id: 'pvb-v1', name: 'PVB API v1', desc: 'Endpoint versi 1', b64: 'aHR0cHM6Ly9wYW5lbGNsb3VkLnh5ei9hcGkvZGF0YQ==', status:'inactive' },
+      { id: 'pvb-v2', name: 'PVB API v2', desc: 'Endpoint versi 2', b64: 'aHR0cHM6Ly9wYW5lbGNsb3VkLnh5ei9hcGkvZGF0YTI=', status:'inactive' }
     ];
 
     const PASSWORD_HASH = '4edc37b85288bcd425f378a8d8b78a0e9a72f19318b9d1136e8bd3f244d04215';
@@ -99,9 +103,9 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:16px 0}
     function buf2hex(buffer){return Array.prototype.map.call(new Uint8Array(buffer), x=>('00'+x.toString(16)).slice(-2)).join('');}
     async function sha256hex(str){const enc = new TextEncoder().encode(str); const hash = await crypto.subtle.digest('SHA-256', enc); return buf2hex(hash);}
 
-    ENTRIES.forEach(entry=>{
-      const card = document.createElement('div'); card.className='card'; card.id = entry.id;
-      card.innerHTML = `
+    function createCard(entry){
+      const card = document.createElement('div'); card.className='card'; card.id=entry.id;
+      card.innerHTML=`
         <div class="meta">
           <div class="icon">🔒</div>
           <div>
@@ -109,30 +113,32 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:16px 0}
             <div class="subtitle">${entry.desc}</div>
           </div>
         </div>
+        <span class="status ${entry.status==='active'?'active':'inactive'}">${entry.status.toUpperCase()}</span>
         <div class="actions">
           <button class="btn primary" data-action="unlock" data-id="${entry.id}">Unlock</button>
           <a class="endpoint hidden" target="_blank" rel="noopener noreferrer" data-action="open"></a>
-        </div>
-      `;
+        </div>`;
       grid.appendChild(card);
-    });
+    }
 
-    grid.addEventListener('click', (e)=>{
-      const btn = e.target.closest('button'); if(!btn) return;
-      const action = btn.dataset.action; const id = btn.dataset.id || btn.closest('.card')?.id;
+    ENTRIES.forEach(createCard);
+
+    grid.addEventListener('click',(e)=>{
+      const btn=e.target.closest('button'); if(!btn) return;
+      const action=btn.dataset.action; const id=btn.dataset.id || btn.closest('.card')?.id;
       if(action==='unlock'){modal.dataset.target=id;pwInput.value='';pwError.textContent='';modal.classList.add('show');pwInput.focus();}
     });
 
-    pwCancel.addEventListener('click', ()=>{ modal.classList.remove('show'); modal.dataset.target=''; pwError.textContent=''; });
+    pwCancel.addEventListener('click',()=>{modal.classList.remove('show');modal.dataset.target='';pwError.textContent='';});
 
-    pwSubmit.addEventListener('click', async ()=>{
-      const v = pwInput.value||''; if(v.length<1){pwError.textContent='Masukkan password.'; return;}
-      const h = await sha256hex(v);
-      if(h===PASSWORD_HASH){ const targetId = modal.dataset.target; revealCard(targetId); localStorage.setItem('unlocked_'+targetId,'1'); modal.classList.remove('show');}
-      else{pwError.textContent='Password salah.'; document.querySelector('.modal').animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:220});}
+    pwSubmit.addEventListener('click',async()=>{
+      const v=pwInput.value||''; if(v.length<1){pwError.textContent='Masukkan password.';return;}
+      const h=await sha256hex(v);
+      if(h===PASSWORD_HASH){const targetId=modal.dataset.target;revealCard(targetId);localStorage.setItem('unlocked_'+targetId,'1');modal.classList.remove('show');}
+      else{pwError.textContent='Password salah.';document.querySelector('.modal').animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:220});}
     });
 
-    pwInput.addEventListener('keydown',(e)=>{if(e.key==='Enter') pwSubmit.click();});
+    pwInput.addEventListener('keydown',(e)=>{if(e.key==='Enter')pwSubmit.click();});
 
     function revealCard(id){
       const entry=ENTRIES.find(e=>e.id===id); if(!entry) return;
@@ -143,8 +149,9 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:16px 0}
       try{const u=new URL(decoded);link.textContent=u.origin+u.pathname.replace(/.[^/]*$/,'/…');}catch(e){link.textContent=decoded;}
       link.classList.remove('hidden');
       card.querySelector('.icon').textContent='🔓';
+      card.querySelector('.status').className='status active'; card.querySelector('.status').textContent='ACTIVE';
       const btn=card.querySelector('button[data-action="unlock"]'); btn.textContent='Copy Link'; btn.dataset.action='copy';
-      btn.addEventListener('click', async ()=>{try{await navigator.clipboard.writeText(decoded); btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy Link',1500);}catch(e){btn.textContent='Salin Gagal'; setTimeout(()=>btn.textContent='Copy Link',1500);}}, {once:true});
+      btn.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(decoded);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy Link',1500);}catch(e){btn.textContent='Salin Gagal';setTimeout(()=>btn.textContent='Copy Link',1500);}}, {once:true});
     }
 
     ENTRIES.forEach(e=>{if(localStorage.getItem('unlocked_'+e.id)){revealCard(e.id);}});
