@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper dengan Salin Kode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+        
+        .scraper-form {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input[type="url"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="url"]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+        
+        button {
+            background: #2575fc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: #1a68e8;
+        }
+        
+        .results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .copy-btn {
+            background: #28a745;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn:hover {
+            background: #218838;
+        }
+        
+        .result-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .success-message.show {
+            opacity: 1;
+        }
+        
+        .link-item {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .link-item:last-child {
+            border-bottom: none;
+        }
+        
+        .link-item a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+        
+        .link-item a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Web Scraper</h1>
+            <p class="description">Masukkan URL website untuk mengekstrak semua link dan kode HTML-nya. Kode yang dihasilkan dapat disalin dengan mudah.</p>
+        </header>
+        
+        <div class="scraper-form">
+            <div class="form-group">
+                <label for="url-input">Masukkan URL:</label>
+                <input type="url" id="url-input" placeholder="https://example.com" required>
+            </div>
+            <button id="scrape-btn">Ekstrak Link & Kode</button>
+            <div id="error-message" class="error" style="display: none;"></div>
+        </div>
+        
+        <div class="results-container">
+            <div class="result-box">
+                <div class="result-header">
+                    <div class="result-title">Link yang Ditemukan</div>
+                    <button class="copy-btn" id="copy-links-btn">Salin Link</button>
+                </div>
+                <div class="result-content" id="links-result">
+                    <div class="loading">Hasil akan muncul di sini...</div>
+                </div>
+            </div>
+            
+            <div class="result-box">
+                <div class="result-header">
+                    <div class="result-title">Kode HTML</div>
+                    <button class="copy-btn" id="copy-html-btn">Salin Kode</button>
+                </div>
+                <div class="result-content" id="html-result">
+                    <div class="loading">Kode HTML akan muncul di sini...</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Web Scraper Sederhana &copy; 2023</p>
+        </footer>
+    </div>
+    
+    <div class="success-message" id="success-message">Teks berhasil disalin!</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlInput = document.getElementById('url-input');
+            const scrapeBtn = document.getElementById('scrape-btn');
+            const linksResult = document.getElementById('links-result');
+            const htmlResult = document.getElementById('html-result');
+            const errorMessage = document.getElementById('error-message');
+            const copyLinksBtn = document.getElementById('copy-links-btn');
+            const copyHtmlBtn = document.getElementById('copy-html-btn');
+            const successMessage = document.getElementById('success-message');
+            
+            // Fungsi untuk menampilkan pesan sukses
+            function showSuccessMessage() {
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 2000);
+            }
+            
+            // Fungsi untuk menyalin teks ke clipboard
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccessMessage();
+                }).catch(err => {
+                    console.error('Gagal menyalin teks: ', err);
+                    // Fallback untuk browser lama
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showSuccessMessage();
+                });
+            }
+            
+            // Event listener untuk tombol salin link
+            copyLinksBtn.addEventListener('click', function() {
+                const linksText = linksResult.innerText;
+                if (linksText && !linksText.includes('Hasil akan muncul di sini')) {
+                    copyToClipboard(linksText);
+                }
+            });
+            
+            // Event listener untuk tombol salin kode HTML
+            copyHtmlBtn.addEventListener('click', function() {
+                const htmlText = htmlResult.innerText;
+                if (htmlText && !htmlText.includes('Kode HTML akan muncul di sini')) {
+                    copyToClipboard(htmlText);
+                }
+            });
+            
+            // Event listener untuk tombol ekstrak
+            scrapeBtn.addEventListener('click', function() {
+                const url = urlInput.value.trim();
+                
+                if (!url) {
+                    showError('Harap masukkan URL yang valid');
+                    return;
+                }
+                
+                // Validasi URL sederhana
+                try {
+                    new URL(url);
+                } catch (e) {
+                    showError('URL tidak valid. Pastikan URL dimulai dengan http:// atau https://');
+                    return;
+                }
+                
+                // Tampilkan loading
+                linksResult.innerHTML = '<div class="loading">Mengekstrak link...</div>';
+                htmlResult.innerHTML = '<div class="loading">Mengambil kode HTML...</div>';
+                hideError();
+                
+                // Gunakan proxy CORS untuk menghindari masalah CORS
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                
+                fetch(proxyUrl + url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Gagal mengambil halaman: ${response.status} ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        // Ekstrak link dari HTML
+                        const linkMatches = html.match(/<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1/g) || [];
+                        const links = linkMatches.map(link => {
+                            const match = link.match(/href=(["'])(.*?)\1/);
+                            return match ? match[2] : '';
+                        }).filter(link => link && !link.startsWith('javascript:'));
+                        
+                        // Tampilkan link
+                        if (links.length > 0) {
+                            let linksHtml = '';
+                            links.forEach(link => {
+                                const fullUrl = link.startsWith('http') ? link : new URL(link, url).href;
+                                linksHtml += `<div class="link-item"><a href="${fullUrl}" target="_blank">${fullUrl}</a></div>`;
+                            });
+                            linksResult.innerHTML = linksHtml;
+                        } else {
+                            linksResult.innerHTML = '<div class="loading">Tidak ada link yang ditemukan</div>';
+                        }
+                        
+                        // Tampilkan kode HTML
+                        htmlResult.textContent = html;
+                    })
+                    .catch(error => {
+                        showError(`Terjadi kesalahan: ${error.message}`);
+                        linksResult.innerHTML = '<div class="loading">Gagal mengekstrak link</div>';
+                        htmlResult.innerHTML = '<div class="loading">Gagal mengambil kode HTML</div>';
+                    });
+            });
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            function hideError() {
+                errorMessage.style.display = 'none';
+            }
+            
+            // Event listener untuk menekan Enter di input URL
+            urlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    scrapeBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
