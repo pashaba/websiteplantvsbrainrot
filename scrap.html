@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Scraper dengan Salin Kode</title>
+    <title>Web Scraper dengan Pretty Print</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
@@ -21,7 +21,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
@@ -46,9 +46,9 @@
         
         .scraper-form {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
         
@@ -63,26 +63,31 @@
             color: #444;
         }
         
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
         input[type="url"] {
-            width: 100%;
+            flex: 1;
             padding: 12px 15px;
             border: 2px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s;
         }
         
         input[type="url"]:focus {
-            border-color: #2575fc;
+            border-color: #667eea;
             outline: none;
         }
         
         button {
-            background: #2575fc;
+            background: #667eea;
             color: white;
             border: none;
             padding: 12px 25px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
             transition: background 0.3s;
@@ -90,7 +95,7 @@
         }
         
         button:hover {
-            background: #1a68e8;
+            background: #5a6fd8;
         }
         
         .results-container {
@@ -99,7 +104,7 @@
             gap: 20px;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .results-container {
                 grid-template-columns: 1fr;
             }
@@ -107,10 +112,10 @@
         
         .result-box {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            height: 500px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            height: 700px;
             display: flex;
             flex-direction: column;
         }
@@ -131,24 +136,26 @@
         }
         
         .copy-btn {
-            background: #28a745;
+            background: #10b981;
             padding: 8px 15px;
             font-size: 0.9rem;
         }
         
         .copy-btn:hover {
-            background: #218838;
+            background: #0da271;
         }
         
         .result-content {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
+            padding: 15px;
             background: #f8f9fa;
-            border-radius: 6px;
-            font-family: monospace;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
             white-space: pre-wrap;
-            word-break: break-all;
+            word-break: break-word;
         }
         
         .loading {
@@ -169,7 +176,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #28a745;
+            background: #10b981;
             color: white;
             padding: 10px 20px;
             border-radius: 6px;
@@ -186,6 +193,11 @@
         .link-item {
             padding: 8px 10px;
             border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+        
+        .link-item:hover {
+            background-color: #f8f9fa;
         }
         
         .link-item:last-child {
@@ -193,7 +205,7 @@
         }
         
         .link-item a {
-            color: #2575fc;
+            color: #667eea;
             text-decoration: none;
         }
         
@@ -212,8 +224,8 @@
             background: white;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
         
         .demo-section h3 {
@@ -233,45 +245,90 @@
             border-radius: 20px;
             cursor: pointer;
             transition: background 0.3s;
+            font-size: 0.9rem;
         }
         
         .demo-url:hover {
-            background: #2575fc;
+            background: #667eea;
             color: white;
+        }
+
+        /* Syntax Highlighting untuk HTML */
+        .html-tag {
+            color: #905;
+            font-weight: bold;
+        }
+        
+        .html-attr-name {
+            color: #07a;
+        }
+        
+        .html-attr-value {
+            color: #690;
+        }
+        
+        .html-comment {
+            color: #999;
+            font-style: italic;
+        }
+        
+        .html-doctype {
+            color: #708;
+        }
+        
+        .indent {
+            margin-left: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Web Scraper</h1>
-            <p class="description">Masukkan URL website untuk mengekstrak semua link dan kode HTML-nya. Kode yang dihasilkan dapat disalin dengan mudah.</p>
-            <p class="description"><strong>Catatan:</strong> Karena pembatasan CORS, scraper ini hanya bisa mengambil data dari domain yang mengizinkan akses CORS.</p>
+            <h1>🕷️ Web Scraper dengan Pretty Print</h1>
+            <p class="description">Ekstrak link dan kode HTML dari website mana pun. Kode HTML akan diformat dengan rapi dan mudah dibaca.</p>
         </header>
         
         <div class="scraper-form">
             <div class="form-group">
-                <label for="url-input">Masukkan URL:</label>
-                <input type="url" id="url-input" placeholder="https://example.com" required>
+                <label for="url-input">Masukkan URL Website:</label>
+                <div class="input-group">
+                    <input type="url" id="url-input" placeholder="https://example.com" required>
+                    <button id="scrape-btn">🚀 Ekstrak Data</button>
+                </div>
             </div>
-            <button id="scrape-btn">Ekstrak Link & Kode</button>
             <div id="error-message" class="error" style="display: none;"></div>
         </div>
         
         <div class="demo-section">
-            <h3>Coba dengan URL contoh ini:</h3>
+            <h3>🌐 Coba dengan URL contoh:</h3>
             <div class="demo-urls">
                 <div class="demo-url" data-url="https://httpbin.org/html">httpbin.org/html</div>
                 <div class="demo-url" data-url="https://jsonplaceholder.typicode.com">jsonplaceholder.typicode.com</div>
                 <div class="demo-url" data-url="https://httpbin.org/links/10/0">httpbin.org/links</div>
+                <div class="demo-url" data-url="https://example.com">example.com</div>
             </div>
         </div>
         
         <div class="results-container">
             <div class="result-box">
                 <div class="result-header">
-                    <div class="result-title">Link yang Ditemukan</div>
-                    <button class="copy-btn" id="copy-links-btn">Salin Link</button>
+                    <div class="result-title">🔗 Link yang Ditemukan</div>
+                    <button class="copy-btn" id="copy-links-btn">📋 Salin Link</button>
                 </div>
                 <div class="result-content" id="links-result">
                     <div class="loading">Hasil akan muncul di sini...</div>
@@ -280,21 +337,21 @@
             
             <div class="result-box">
                 <div class="result-header">
-                    <div class="result-title">Kode HTML</div>
-                    <button class="copy-btn" id="copy-html-btn">Salin Kode</button>
+                    <div class="result-title">📄 Kode HTML (Pretty Print)</div>
+                    <button class="copy-btn" id="copy-html-btn">📋 Salin Kode</button>
                 </div>
                 <div class="result-content" id="html-result">
-                    <div class="loading">Kode HTML akan muncul di sini...</div>
+                    <div class="loading">Kode HTML akan muncul di sini dengan format yang rapi...</div>
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>Web Scraper Sederhana &copy; 2023</p>
+            <p>Web Scraper dengan Pretty Print &copy; 2024</p>
         </footer>
     </div>
     
-    <div class="success-message" id="success-message">Teks berhasil disalin!</div>
+    <div class="success-message" id="success-message">✅ Teks berhasil disalin!</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -307,6 +364,79 @@
             const copyHtmlBtn = document.getElementById('copy-html-btn');
             const successMessage = document.getElementById('success-message');
             const demoUrls = document.querySelectorAll('.demo-url');
+            
+            // Fungsi untuk pretty print HTML
+            function prettyPrintHTML(html) {
+                let formatted = '';
+                let indent = '';
+                const tab = '  ';
+                let inTag = false;
+                let inAttribute = false;
+                let currentTag = '';
+                let depth = 0;
+                
+                // Remove extra whitespace and normalize line breaks
+                html = html.replace(/\s+/g, ' ').trim();
+                
+                for (let i = 0; i < html.length; i++) {
+                    const char = html[i];
+                    const nextChar = html[i + 1];
+                    
+                    if (char === '<') {
+                        if (nextChar === '/') {
+                            // Closing tag
+                            depth = Math.max(0, depth - 1);
+                            indent = tab.repeat(depth);
+                            formatted += '\n' + indent;
+                        } else if (html.substr(i, 4) === '<!--') {
+                            // Comment
+                            const commentEnd = html.indexOf('-->', i);
+                            if (commentEnd !== -1) {
+                                formatted += '\n' + indent + html.substring(i, commentEnd + 3);
+                                i = commentEnd + 2;
+                                continue;
+                            }
+                        } else {
+                            // Opening tag
+                            if (i > 0 && html[i-1] !== '\n') {
+                                formatted += '\n';
+                            }
+                            formatted += indent;
+                            depth++;
+                        }
+                        inTag = true;
+                        formatted += char;
+                    } else if (char === '>') {
+                        inTag = false;
+                        inAttribute = false;
+                        formatted += char;
+                        indent = tab.repeat(depth);
+                    } else if (char === '"' || char === "'") {
+                        inAttribute = !inAttribute;
+                        formatted += char;
+                    } else if (char === ' ' && !inAttribute && inTag) {
+                        formatted += '\n' + indent + tab;
+                    } else {
+                        formatted += char;
+                    }
+                }
+                
+                // Clean up extra newlines and format specific tags
+                return formatted
+                    .replace(/\n\s*\n/g, '\n')
+                    .replace(/>\s+</g, '>\n<')
+                    .split('\n')
+                    .map(line => {
+                        // Add syntax highlighting
+                        return line
+                            .replace(/&lt;!DOCTYPE([^&]*)&gt;/g, '<span class="html-doctype">&lt;!DOCTYPE$1&gt;</span>')
+                            .replace(/&lt;!--([^&]*)--&gt;/g, '<span class="html-comment">&lt;!--$1--&gt;</span>')
+                            .replace(/&lt;(\/?)([a-zA-Z][a-zA-Z0-9]*)/g, '&lt;<span class="html-tag">$1$2</span>')
+                            .replace(/([a-zA-Z-]+)=/g, '<span class="html-attr-name">$1</span>=')
+                            .replace(/["']([^"']*)["']/g, '<span class="html-attr-value">"$1"</span>');
+                    })
+                    .join('\n');
+            }
             
             // Fungsi untuk menampilkan pesan sukses
             function showSuccessMessage() {
@@ -343,7 +473,7 @@
             
             // Event listener untuk tombol salin kode HTML
             copyHtmlBtn.addEventListener('click', function() {
-                const htmlText = htmlResult.innerText;
+                const htmlText = htmlResult.textContent;
                 if (htmlText && !htmlText.includes('Kode HTML akan muncul di sini')) {
                     copyToClipboard(htmlText);
                 }
@@ -375,8 +505,8 @@
                 }
                 
                 // Tampilkan loading
-                linksResult.innerHTML = '<div class="loading">Mengekstrak link...</div>';
-                htmlResult.innerHTML = '<div class="loading">Mengambil kode HTML...</div>';
+                linksResult.innerHTML = '<div class="loading">🔍 Mencari link...</div>';
+                htmlResult.innerHTML = '<div class="loading">🔄 Memformat kode HTML...</div>';
                 hideError();
                 
                 // Menggunakan proxy CORS alternatif
@@ -395,29 +525,56 @@
                         const doc = parser.parseFromString(html, 'text/html');
                         const links = doc.querySelectorAll('a[href]');
                         
-                        // Tampilkan link
+                        // Tampilkan link dengan statistik
                         if (links.length > 0) {
                             let linksHtml = '';
+                            let internalLinks = 0;
+                            let externalLinks = 0;
+                            
                             links.forEach(link => {
                                 const href = link.getAttribute('href');
                                 if (href && !href.startsWith('javascript:')) {
                                     const fullUrl = href.startsWith('http') ? href : new URL(href, url).href;
-                                    linksHtml += `<div class="link-item"><a href="${fullUrl}" target="_blank">${fullUrl}</a></div>`;
+                                    const isExternal = !fullUrl.includes(new URL(url).hostname);
+                                    
+                                    if (isExternal) {
+                                        externalLinks++;
+                                    } else {
+                                        internalLinks++;
+                                    }
+                                    
+                                    linksHtml += `<div class="link-item">
+                                        <a href="${fullUrl}" target="_blank">${fullUrl}</a>
+                                        ${isExternal ? '🌐' : '🏠'}
+                                    </div>`;
                                 }
                             });
-                            linksResult.innerHTML = linksHtml;
+                            
+                            // Tambahkan statistik
+                            const statsHtml = `<div class="stats">
+                                <div class="stat-item">Total: ${links.length} link</div>
+                                <div class="stat-item">Internal: ${internalLinks}</div>
+                                <div class="stat-item">External: ${externalLinks}</div>
+                            </div>`;
+                            
+                            linksResult.innerHTML = statsHtml + linksHtml;
                         } else {
-                            linksResult.innerHTML = '<div class="loading">Tidak ada link yang ditemukan</div>';
+                            linksResult.innerHTML = '<div class="loading">❌ Tidak ada link yang ditemukan</div>';
                         }
                         
-                        // Tampilkan kode HTML
-                        htmlResult.textContent = html;
+                        // Format dan tampilkan kode HTML dengan pretty print
+                        const formattedHTML = prettyPrintHTML(html
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                        );
+                        
+                        htmlResult.innerHTML = `<div style="color: #333;">${formattedHTML}</div>`;
                     })
                     .catch(error => {
                         console.error('Error:', error);
                         showError(`Terjadi kesalahan: ${error.message}. Coba gunakan URL contoh di atas.`);
-                        linksResult.innerHTML = '<div class="loading">Gagal mengekstrak link</div>';
-                        htmlResult.innerHTML = '<div class="loading">Gagal mengambil kode HTML</div>';
+                        linksResult.innerHTML = '<div class="loading">❌ Gagal mengekstrak link</div>';
+                        htmlResult.innerHTML = '<div class="loading">❌ Gagal mengambil kode HTML</div>';
                     });
             });
             
